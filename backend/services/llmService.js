@@ -3,7 +3,7 @@ const FormData = require('form-data');
 const path = require('path');
 const mime = require('mime-types'); // New library to detect MIME types
 
-const UNSTRUCT_API_URL = 'https://us-central.unstract.com/deployment/api/org_TVqffEyFhVLX91G2/extractdata/';
+const UNSTRUCT_API_URL = 'https://us-central.unstract.com/deployment/api/org_TVqffEyFhVLX91G2/test/';
 const UNSTRUCT_API_KEY = process.env.UNSTRUCT_API_KEY;
 
 /**
@@ -28,7 +28,7 @@ exports.callUnstructAI = async (fileBuffer, filename) => {
     const response = await axios.post(UNSTRUCT_API_URL, form, {
       headers: {
         ...form.getHeaders(),
-        'Authorization': `Bearer 073a7883-e772-4867-aacc-155fe72131d5`,
+        'Authorization': `Bearer d10bfa8d-397e-48ab-8e44-c8d40496d0b5`,
       },
       maxContentLength: Infinity,
       maxBodyLength: Infinity,

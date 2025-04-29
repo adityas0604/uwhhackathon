@@ -1,77 +1,37 @@
 [
   {
-    "backendFilename": "file-1745935194688-422476671.png",
-    "originalFilename": "Screenshot 2025-04-29 at 2.26.19 AM.png",
+    "backendFilename": "file-1745947247104-853634623.png",
+    "originalFilename": "Screenshot 2025-04-29 at 12.09.17â¯PM.png",
     "extractedData": {
       "message": {
         "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=902a9d75-a355-4a72-b45d-b9cf2cd70b25",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/test/?execution_id=45c36505-a54f-472c-903a-b36c2b23d980",
         "error": null,
         "result": [
           {
-            "file": "file-1745935194688-422476671.png",
+            "file": "file-1745947247104-853634623.png",
             "status": "Success",
             "result": {
               "output": {
-                "customer_name": "Aruna Ram ",
-                "id": "4343434",
-                "address": "1234 Elm Street, Madison, WId"
+                "bank_addr": "P.O. Box 15284, Wilmington, DE 19850",
+                "bank_name": "BANK OF AMERICA",
+                "end_period": "November 12, 2024",
+                "start_period": "October 16, 2024"
               }
             },
             "metadata": {
-              "source_name": "file-1745935194688-422476671.png",
-              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
+              "source_name": "file-1745947247104-853634623.png",
+              "source_hash": "df64b1ac89fcfa6bcbd5116b85b96bdaa5f4e97f33ebe1451969a20a925efda8",
               "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
-              "execution_id": "902a9d75-a355-4a72-b45d-b9cf2cd70b25",
-              "file_execution_id": "2003ec67-6b7f-4b8a-8757-8165ced7bc13",
+              "workflow_id": "16d63d24-6699-4fe5-af51-2150bf40d457",
+              "execution_id": "45c36505-a54f-472c-903a-b36c2b23d980",
+              "file_execution_id": "6a5bef25-50f2-4981-8d35-c019d17fb7c8",
               "tags": [],
-              "total_elapsed_time": 13.458525,
+              "total_elapsed_time": 16.718024,
               "tool_metadata": [
                 {
                   "tool_name": "structure_tool",
-                  "elapsed_time": 13.458518,
-                  "output_type": "JSON"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "backendFilename": "file-17459868635194688-422476671.png",
-    "originalFilename": "Screenshot 2025-04-29 at 2.26.19 AM.png",
-    "extractedData": {
-      "message": {
-        "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=902a9d75-a355-4a72-b45d-b9cf2cd70b25",
-        "error": null,
-        "result": [
-          {
-            "file": "file-1745935194688-422476671.png",
-            "status": "Success",
-            "result": {
-              "output": {
-                "customer_name": "Aruna DCDCDDVRam ",
-                "id": "4343VDDVDV434",
-                "address": "1234 Elm VDVDVDVStreet, Madison, WI"
-              }
-            },
-            "metadata": {
-              "source_name": "file-1745935194688-422476671.png",
-              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
-              "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
-              "execution_id": "902a9d75-a355-4a72-b45d-b9cf2cd70b25",
-              "file_execution_id": "2003ec67-6b7f-4b8a-8757-8165ced7bc13",
-              "tags": [],
-              "total_elapsed_time": 13.458525,
-              "tool_metadata": [
-                {
-                  "tool_name": "structure_tool",
-                  "elapsed_time": 13.458518,
+                  "elapsed_time": 16.718017,
                   "output_type": "JSON"
                 }
               ]
