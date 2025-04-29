@@ -13,11 +13,50 @@
             "status": "Success",
             "result": {
               "output": {
-                "cc_issuer_name": "Bank of Baroda",
-                "customer_address": "```json\n{\n  \"full_address\": \"48 N ORCHARD ST APT 5 MADISON, WI 53715-2619\",\n  \"city\": \"MADISON\",\n  \"zip\": \"53715-2619\"\n}\n```",
-                "customer_name": "Aditya Sharma",
-                "payment_info": "```json\n{\n    \"new_balance\": null,\n    \"minimum_payment\": null,\n    \"due_date\": null\n}\n```",
-                "spend_line_items": "```json\n[]\n```"
+                "customer_name": "Aruna Ram ",
+                "id": "4343434",
+                "address": "1234 Elm Street, Madison, WId"
+              }
+            },
+            "metadata": {
+              "source_name": "file-1745935194688-422476671.png",
+              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
+              "execution_id": "902a9d75-a355-4a72-b45d-b9cf2cd70b25",
+              "file_execution_id": "2003ec67-6b7f-4b8a-8757-8165ced7bc13",
+              "tags": [],
+              "total_elapsed_time": 13.458525,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 13.458518,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-17459868635194688-422476671.png",
+    "originalFilename": "Screenshot 2025-04-29 at 2.26.19 AM.png",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=902a9d75-a355-4a72-b45d-b9cf2cd70b25",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1745935194688-422476671.png",
+            "status": "Success",
+            "result": {
+              "output": {
+                "customer_name": "Aruna DCDCDDVRam ",
+                "id": "4343VDDVDV434",
+                "address": "1234 Elm VDVDVDVStreet, Madison, WI"
               }
             },
             "metadata": {
