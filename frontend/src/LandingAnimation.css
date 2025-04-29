@@ -1,0 +1,51 @@
+.landing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    gap: 5rem;
+    overflow: hidden;
+  }
+  
+  .logo {
+    width: 350px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1.2s ease;
+  }
+  
+  .logo-left.slide-in-left {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    animation: slideInFromLeft 1.2s forwards;
+  }
+  
+  .logo-right.slide-in-right {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    animation: slideInFromRight 1.2s forwards;
+  }
+  
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-200%) scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(200%) scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
