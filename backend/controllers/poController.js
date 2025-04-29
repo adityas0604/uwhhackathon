@@ -128,20 +128,6 @@ exports.processDocument = async (req, res) => {
     res.status(500).json({ message: 'Error processing document' });
   }
 };
-// exports.listUploadedFiles = async (req, res) => {
-//   try {
-//     const folderPath = path.join('uploads', 'new');
-//     const files = await listFilesInFolder(folderPath);
-
-//     res.status(200).json({
-//       message: 'Uploaded files fetched successfully',
-//       files: files
-//     });
-//   } catch (err) {
-//     console.error('Error fetching uploaded files:', err);
-//     res.status(500).json({ message: 'Error fetching uploaded files' });
-//   }
-// };
 
 exports.listUploadedFiles = async (req, res) => {
   try {
@@ -163,6 +149,154 @@ exports.listUploadedFiles = async (req, res) => {
   } catch (err) {
     console.error('Error fetching uploaded files:', err);
     res.status(500).json({ message: 'Error fetching uploaded files' });
+  }
+};
+
+
+exports.reverifyDocument = async (req, res) => {
+  try {
+    const { filename } = req.params;
+
+    const processedPath = path.join('uploads', 'processed', filename);
+    const newPath = path.join('uploads', 'new', filename);
+
+    // Check if file exists in processed folder
+    if (!fs.existsSync(processedPath)) {
+      return res.status(404).json({ message: 'Processed file not found.' });
+    }
+
+    // Move file back to uploads/new
+    fs.renameSync(processedPath, newPath);
+
+    // Load and update structuredOutputs.json
+    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+    let structuredOutputs = [];
+
+    if (fs.existsSync(structuredOutputsPath)) {
+      const rawData = fs.readFileSync(structuredOutputsPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        structuredOutputs = parsedData;
+      }
+    }
+
+    // Find and remove the document entry from structuredOutputs.json
+    const updatedOutputs = structuredOutputs.filter(entry => entry.backendFilename !== filename);
+    fs.writeFileSync(structuredOutputsPath, JSON.stringify(updatedOutputs, null, 2));
+
+    // Add the file info back to uploadedFiles.json
+    const uploadedFilesPath = path.join('uploads', 'uploadedFiles.json');
+    let uploadedFiles = [];
+
+    if (fs.existsSync(uploadedFilesPath)) {
+      const rawData = fs.readFileSync(uploadedFilesPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        uploadedFiles = parsedData;
+      }
+    }
+
+    // Find originalFilename from structuredOutputs (before removal)
+    const originalEntry = structuredOutputs.find(entry => entry.backendFilename === filename);
+
+    if (originalEntry) {
+      uploadedFiles.push({
+        backendFilename: filename,
+        originalFilename: originalEntry.originalFilename
+      });
+    }
+
+    fs.writeFileSync(uploadedFilesPath, JSON.stringify(uploadedFiles, null, 2));
+
+    res.status(200).json({ message: 'Document sent back for reverification.' });
+  } catch (err) {
+    console.error('Error during reverification:', err);
+    res.status(500).json({ message: 'Error sending document for reverification.' });
+  }
+};
+
+
+exports.getVerificationFiles = async (req, res) => {
+  try {
+    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+    let structuredOutputs = [];
+
+    // Load structuredOutputs.json
+    if (fs.existsSync(structuredOutputsPath)) {
+      const rawData = fs.readFileSync(structuredOutputsPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        structuredOutputs = parsedData;
+      }
+    }
+
+    // Map structured outputs to only necessary fields
+    const formattedOutputs = structuredOutputs.map(entry => {
+      let outputData = {};
+
+      try {
+        outputData = entry.extractedData?.message?.result?.[0]?.result?.output || {};
+      } catch (error) {
+        console.error('Error extracting output for file:', entry.backendFilename);
+      }
+
+      return {
+        backendFilename: entry.backendFilename,
+        originalFilename: entry.originalFilename,
+        output: outputData
+      };
+    });
+
+    res.status(200).json({ files: formattedOutputs });
+  } catch (err) {
+    console.error('Error fetching verification files:', err);
+    res.status(500).json({ message: 'Error fetching verification files.' });
+  }
+};
+
+
+exports.editOutput = async (req, res) => {
+  try {
+    const { filename } = req.params;
+    const { output } = req.body;
+
+    if (!output || typeof output !== 'object') {
+      return res.status(400).json({ message: 'Invalid output provided.' });
+    }
+
+    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+    let structuredOutputs = [];
+
+    // Load structuredOutputs.json
+    if (fs.existsSync(structuredOutputsPath)) {
+      const rawData = fs.readFileSync(structuredOutputsPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        structuredOutputs = parsedData;
+      }
+    }
+
+    // Find the document to edit
+    const fileIndex = structuredOutputs.findIndex(entry => entry.backendFilename === filename);
+
+    if (fileIndex === -1) {
+      return res.status(404).json({ message: 'Document not found.' });
+    }
+
+    // Update ONLY the output section
+    if (structuredOutputs[fileIndex]?.extractedData?.message?.result?.[0]?.result) {
+      structuredOutputs[fileIndex].extractedData.message.result[0].result.output = output;
+    } else {
+      return res.status(400).json({ message: 'Invalid document structure for editing.' });
+    }
+
+    // Save updated structuredOutputs.json
+    fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
+
+    res.status(200).json({ message: 'Output updated successfully.' });
+  } catch (err) {
+    console.error('Error editing output:', err);
+    res.status(500).json({ message: 'Error editing output.' });
   }
 };
 

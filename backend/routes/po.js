@@ -23,6 +23,11 @@ const upload = multer({ storage: storage });
 router.post('/upload', upload.single('file'), poController.uploadPO);
 router.post('/process/:filename', poController.processDocument);
 router.get('/uploads', poController.listUploadedFiles);
+router.post('/reverify/:filename', poController.reverifyDocument);
+router.get('/verification', poController.getVerificationFiles);
+router.put('/edit/:filename', poController.editOutput);
+
+
 
 
 module.exports = router;
