@@ -25,7 +25,7 @@ function VerificationPage() {
   const handleEditClick = (backendFilename) => {
     if (editingFile === backendFilename) {
       setEditingFile(null);
-      setEditedOutputs((prev) => {
+      setEditedOutputs(prev => {
         const updated = { ...prev };
         delete updated[backendFilename];
         return updated;
@@ -35,46 +35,30 @@ function VerificationPage() {
     }
   };
 
-  const handleLineItemChange = (backendFilename, index, newValue) => {
-    setEditedOutputs((prev) => {
-      const prevFileEdits = prev[backendFilename] || {};
-      return {
-        ...prev,
-        [backendFilename]: {
-          ...prevFileEdits,
-          [index]: newValue
-        }
-      };
-    });
+  const handleOutputChange = (backendFilename, key, value) => {
+    setEditedOutputs(prev => ({
+      ...prev,
+      [backendFilename]: {
+        ...(prev[backendFilename] || {}),
+        [key]: value
+      }
+    }));
   };
 
   const handleSave = async (backendFilename) => {
     try {
       setSavingFile(backendFilename);
 
-      const originalFile = files.find((file) => file.backendFilename === backendFilename);
+      const originalFile = files.find(file => file.backendFilename === backendFilename);
+
       if (!originalFile) {
         alert('Original file not found.');
         return;
       }
 
-      const originalLines = originalFile.output.extarct_line || [];
-      const editedLines = editedOutputs[backendFilename] || {};
-      const mergedLines = originalLines.map((line, idx) => {
-        if (editedLines[idx]) {
-          try {
-            return JSON.parse(editedLines[idx]);
-          } catch (e) {
-            alert(`Line item ${idx + 1} contains invalid JSON.`);
-            throw e;
-          }
-        }
-        return line;
-      });
-
       const updatedOutput = {
         ...originalFile.output,
-        extarct_line: mergedLines
+        ...editedOutputs[backendFilename]
       };
 
       await axios.put(`http://localhost:8000/api/po/edit/${backendFilename}`, {
@@ -83,7 +67,7 @@ function VerificationPage() {
 
       alert('Output saved successfully.');
       setEditingFile(null);
-      setEditedOutputs((prev) => {
+      setEditedOutputs(prev => {
         const updated = { ...prev };
         delete updated[backendFilename];
         return updated;
@@ -112,8 +96,8 @@ function VerificationPage() {
       alert('File sent back for reverification.');
       fetchVerificationFiles();
     } catch (error) {
-      console.error('Error during reverification:', error);
-      alert('Reverification failed.');
+      console.error('Error sending file for reverification:', error);
+      alert('Error during reverification.');
     }
   };
 
@@ -132,35 +116,22 @@ function VerificationPage() {
                   <Card.Title className="text-center">{file.originalFilename}</Card.Title>
 
                   <Form>
-                    {Array.isArray(file.output.extarct_line) &&
-                      file.output.extarct_line.map((lineItem, lineIdx) => {
-                        const currentValue =
-                          editingFile === file.backendFilename
-                            ? editedOutputs[file.backendFilename]?.[lineIdx] ??
-                              JSON.stringify(lineItem, null, 2)
-                            : JSON.stringify(lineItem, null, 2);
-
-                        return (
-                          <Form.Group key={lineIdx} className="mb-3">
-                            <Form.Label>
-                              <strong>Line Item #{lineIdx + 1}</strong>
-                            </Form.Label>
-                            <Form.Control
-                              as="textarea"
-                              rows={4}
-                              value={currentValue}
-                              disabled={editingFile !== file.backendFilename}
-                              onChange={(e) =>
-                                handleLineItemChange(
-                                  file.backendFilename,
-                                  lineIdx,
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </Form.Group>
-                        );
-                      })}
+                    {Object.entries(file.output).map(([key, value]) => (
+                      <Form.Group key={key} className="mb-2">
+                        <Form.Label style={{ fontWeight: 'bold' }}>{key}</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={2}
+                          value={
+                            editingFile === file.backendFilename
+                              ? editedOutputs[file.backendFilename]?.[key] ?? value
+                              : value
+                          }
+                          disabled={editingFile !== file.backendFilename}
+                          onChange={(e) => handleOutputChange(file.backendFilename, key, e.target.value)}
+                        />
+                      </Form.Group>
+                    ))}
                   </Form>
                 </Card.Body>
 
@@ -177,7 +148,7 @@ function VerificationPage() {
                       variant="warning"
                       onClick={() => handleReverify(file.backendFilename)}
                     >
-                      Reprocess
+                      Send for Reverification
                     </Button>
 
                     <Button
