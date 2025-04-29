@@ -41,5 +41,177 @@
         ]
       }
     }
+  },
+  {
+    "filename": "file-1745913993469-717901339.png",
+    "originalPath": "uploads/processed/file-1745913993469-717901339.png",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=a584cc76-c614-46e6-aa39-5997177f6468",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1745913993469-717901339.png",
+            "status": "Success",
+            "result": {
+              "output": {
+                "cc_issuer_name": "Bank of America",
+                "customer_address": "```json\n{\n  \"full_address\": \"48 N ORCHARD ST APT 5, MADISON, WI 53715-2619\",\n  \"city\": \"MADISON\",\n  \"zip\": \"53715\"\n}\n```",
+                "customer_name": "Aditya Sharma",
+                "payment_info": "```json\n{\n    \"new_balance\": null,\n    \"minimum_payment\": null,\n    \"due_date\": null\n}\n```",
+                "spend_line_items": "```json\n[]\n```"
+              }
+            },
+            "metadata": {
+              "source_name": "file-1745913993469-717901339.png",
+              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
+              "execution_id": "a584cc76-c614-46e6-aa39-5997177f6468",
+              "file_execution_id": "8be7b200-3288-4d8b-8d7e-55bd4b9df430",
+              "tags": [],
+              "total_elapsed_time": 13.021859,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 13.021849,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "filename": "file-1745914174136-298863857.png",
+    "originalPath": "uploads/processed/file-1745914174136-298863857.png",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=686181b7-33f7-4861-9491-a2ed427903e9",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1745914174136-298863857.png",
+            "status": "Success",
+            "result": {
+              "output": {
+                "cc_issuer_name": "Bank of America",
+                "customer_address": "```json\n{\n  \"full_address\": \"48 N ORCHARD ST APT 5 MADISON, WI 53715-2619\",\n  \"city\": \"MADISON\",\n  \"zip\": \"53715\"\n}\n```",
+                "customer_name": "Aditya Sharma",
+                "payment_info": "```json\n{\n  \"new_balance\": null,\n  \"minimum_payment\": null,\n  \"due_date\": null\n}\n```",
+                "spend_line_items": "```json\n[]\n```"
+              }
+            },
+            "metadata": {
+              "source_name": "file-1745914174136-298863857.png",
+              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
+              "execution_id": "686181b7-33f7-4861-9491-a2ed427903e9",
+              "file_execution_id": "6891979e-3fe0-4315-b1f6-c1a03c82ece7",
+              "tags": [],
+              "total_elapsed_time": 13.279972,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 13.279966,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "filename": "file-1745915793969-598759140.pdf",
+    "originalPath": "uploads/processed/file-1745915793969-598759140.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=04c3d9ad-c615-4714-be1f-7cdbc59d46a6",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1745915793969-598759140.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "cc_issuer_name": "There is no information about a credit card issuer or bank in the provided context.",
+                "customer_address": "```json\n{\n  \"full_address\": \"Vidya Bhavan, Nampally, Hyderabad - 500 001\",\n  \"city\": \"Hyderabad\",\n  \"zip\": \"500 001\"\n}\n```",
+                "customer_name": "Aditya Sharma",
+                "payment_info": "```json\n{\n    \"new_balance\": null,\n    \"minimum_payment\": null,\n    \"due_date\": null\n}\n```",
+                "spend_line_items": "```json\n[]\n```"
+              }
+            },
+            "metadata": {
+              "source_name": "file-1745915793969-598759140.pdf",
+              "source_hash": "7665e208097625d632e852a07049ab2a76b7a9ee7069f2bd1e8c3064de00ae5b",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
+              "execution_id": "04c3d9ad-c615-4714-be1f-7cdbc59d46a6",
+              "file_execution_id": "9edbef4b-276f-4082-bad8-f9fd109e1058",
+              "tags": [],
+              "total_elapsed_time": 19.245017,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 19.245012,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "filename": "file-1745916352884-187748381.png",
+    "originalPath": "uploads/processed/file-1745916352884-187748381.png",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extractdata/?execution_id=e992bb39-1e10-4a61-99d8-416b1f954c90",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1745916352884-187748381.png",
+            "status": "Success",
+            "result": {
+              "output": {
+                "cc_issuer_name": "Bank of America",
+                "customer_address": "```json\n{\n  \"full_address\": \"48 N ORCHARD ST APT 5 MADISON, WI 53715-2619\",\n  \"city\": \"MADISON\",\n  \"zip\": \"53715-2619\"\n}\n```",
+                "customer_name": "Aditya Sharma",
+                "payment_info": "```json\n{\n  \"new_balance\": null,\n  \"minimum_payment\": null,\n  \"due_date\": null\n}\n```",
+                "spend_line_items": "```json\n[]\n```"
+              }
+            },
+            "metadata": {
+              "source_name": "file-1745916352884-187748381.png",
+              "source_hash": "f9401ea056b5af692008b17bab0d937dc53f9802d9bbb7bef5902e4b56d3a614",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "19b177d1-5167-46be-baee-34ea35ce03e2",
+              "execution_id": "e992bb39-1e10-4a61-99d8-416b1f954c90",
+              "file_execution_id": "28aaeea1-f790-4a35-a468-7e0df3746ea7",
+              "tags": [],
+              "total_elapsed_time": 12.823146,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 12.823141,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
   }
 ]
