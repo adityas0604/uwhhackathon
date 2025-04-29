@@ -24,7 +24,6 @@ function VerificationPage() {
 
   const handleEditClick = (backendFilename) => {
     if (editingFile === backendFilename) {
-      // Cancel editing
       setEditingFile(null);
       setEditedOutputs(prev => {
         const updated = { ...prev };
@@ -83,6 +82,25 @@ function VerificationPage() {
     }
   };
 
+  const downloadFile = (backendFilename) => {
+    window.open(`http://localhost:8000/api/po/download/file/${backendFilename}`, '_blank');
+  };
+
+  const downloadOutput = (backendFilename) => {
+    window.open(`http://localhost:8000/api/po/download/output/${backendFilename}`, '_blank');
+  };
+
+  const handleReverify = async (backendFilename) => {
+    try {
+      await axios.post(`http://localhost:8000/api/po/reverify/${backendFilename}`);
+      alert('File sent back for reverification.');
+      fetchVerificationFiles();
+    } catch (error) {
+      console.error('Error sending file for reverification:', error);
+      alert('Error during reverification.');
+    }
+  };
+
   return (
     <Container className="mt-5">
       <h2 className="mb-4 text-center">Verification Page</h2>
@@ -109,7 +127,7 @@ function VerificationPage() {
                               ? editedOutputs[file.backendFilename]?.[key] ?? value
                               : value
                           }
-                          disabled={editingFile !== file.backendFilename} // ✅ Only allow editing the selected card
+                          disabled={editingFile !== file.backendFilename}
                           onChange={(e) => handleOutputChange(file.backendFilename, key, e.target.value)}
                         />
                       </Form.Group>
@@ -117,34 +135,61 @@ function VerificationPage() {
                   </Form>
                 </Card.Body>
 
-                <Card.Footer className="bg-white border-0 d-flex justify-content-between">
-                  <Button
-                    variant={editingFile === file.backendFilename ? 'secondary' : 'primary'}
-                    onClick={() => handleEditClick(file.backendFilename)}
-                  >
-                    {editingFile === file.backendFilename ? 'Cancel' : 'Edit'}
-                  </Button>
+                <Card.Footer className="bg-white border-0">
+                  <div className="w-100 d-flex justify-content-between mb-2">
+                    <Button
+                      variant={editingFile === file.backendFilename ? 'secondary' : 'primary'}
+                      onClick={() => handleEditClick(file.backendFilename)}
+                    >
+                      {editingFile === file.backendFilename ? 'Cancel' : 'Edit'}
+                    </Button>
 
-                  <Button
-                    variant="success"
-                    disabled={
-                      !editedOutputs[file.backendFilename] ||
-                      editingFile !== file.backendFilename
-                    }
-                    onClick={() => handleSave(file.backendFilename)}
-                  >
-                    {savingFile === file.backendFilename ? (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-2"
-                      />
-                    ) : null}
-                    Save
-                  </Button>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleReverify(file.backendFilename)}
+                    >
+                      Send for Reverification
+                    </Button>
+
+                    <Button
+                      variant="success"
+                      disabled={
+                        !editedOutputs[file.backendFilename] ||
+                        editingFile !== file.backendFilename
+                      }
+                      onClick={() => handleSave(file.backendFilename)}
+                    >
+                      {savingFile === file.backendFilename ? (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-2"
+                        />
+                      ) : null}
+                      Save
+                    </Button>
+                  </div>
+
+                  <div className="w-100 d-flex justify-content-between">
+                    <Button
+                      variant="outline-primary"
+                      size="sm"
+                      onClick={() => downloadFile(file.backendFilename)}
+                    >
+                      Download File
+                    </Button>
+
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() => downloadOutput(file.backendFilename)}
+                    >
+                      Download Output
+                    </Button>
+                  </div>
                 </Card.Footer>
               </Card>
             </Col>

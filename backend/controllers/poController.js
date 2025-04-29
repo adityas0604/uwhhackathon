@@ -300,5 +300,37 @@ exports.editOutput = async (req, res) => {
   }
 };
 
+exports.downloadFile = (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join('uploads', 'processed', filename);
 
+  if (fs.existsSync(filePath)) {
+    res.download(filePath);
+  } else {
+    res.status(404).json({ message: 'File not found.' });
+  }
+};
+
+exports.downloadOutput = (req, res) => {
+  const { filename } = req.params;
+  const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+
+  if (fs.existsSync(structuredOutputsPath)) {
+    const rawData = fs.readFileSync(structuredOutputsPath);
+    const structuredOutputs = JSON.parse(rawData);
+
+    const fileEntry = structuredOutputs.find(entry => entry.backendFilename === filename);
+
+    if (fileEntry && fileEntry.extractedData?.message?.result?.[0]?.result?.output) {
+      const outputData = fileEntry.extractedData.message.result[0].result.output;
+      
+      res.setHeader('Content-Disposition', `attachment; filename=${filename}-output.json`);
+      res.json(outputData);
+    } else {
+      res.status(404).json({ message: 'Output not found.' });
+    }
+  } else {
+    res.status(404).json({ message: 'Structured outputs not found.' });
+  }
+};
 
