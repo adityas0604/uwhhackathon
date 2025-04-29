@@ -4,15 +4,57 @@ const fs = require('fs');
 const path = require('path');
 
 // Upload API
+// exports.uploadPO = async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ message: 'No file uploaded' });
+//     }
+
+//     res.status(200).json({
+//       message: 'File uploaded successfully',
+//       filename: req.file.filename,
+//       path: req.file.path
+//     });
+//   } catch (err) {
+//     console.error('Error uploading file:', err);
+//     res.status(500).json({ message: 'Error uploading file' });
+//   }
+// };
+
+//Upload API with file mappings
 exports.uploadPO = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
 
+    const backendFilename = req.file.filename;
+    const originalFilename = req.file.originalname;
+    const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+    let uploadedFiles = [];
+
+    // Load existing mapping
+    if (fs.existsSync(uploadMappingPath)) {
+      const rawData = fs.readFileSync(uploadMappingPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        uploadedFiles = parsedData;
+      }
+    }
+
+    // Add new upload mapping
+    uploadedFiles.push({
+      backendFilename,
+      originalFilename
+    });
+
+    // Save updated mapping
+    fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
+
     res.status(200).json({
       message: 'File uploaded successfully',
-      filename: req.file.filename,
+      backendFilename: backendFilename,
+      originalFilename: originalFilename,
       path: req.file.path
     });
   } catch (err) {
@@ -20,6 +62,7 @@ exports.uploadPO = async (req, res) => {
     res.status(500).json({ message: 'Error uploading file' });
   }
 };
+
 
 // Process Document API
 exports.processDocument = async (req, res) => {
@@ -61,6 +104,20 @@ exports.processDocument = async (req, res) => {
     // Save updated structured outputs
     fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
 
+    const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+    if (fs.existsSync(uploadMappingPath)) {
+      const rawData = fs.readFileSync(uploadMappingPath);
+      let uploadedFiles = JSON.parse(rawData);
+
+      if (Array.isArray(uploadedFiles)) {
+        // Remove entry where backendFilename matches
+        uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
+
+        // Save back the cleaned list
+        fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
+      }
+    }
+
     res.status(200).json({
       message: 'Document processed and structured output saved successfully',
       extractedData: extractedData,
@@ -71,19 +128,43 @@ exports.processDocument = async (req, res) => {
   }
 };
 
+// exports.listUploadedFiles = async (req, res) => {
+//   try {
+//     const folderPath = path.join('uploads', 'new');
+//     const files = await listFilesInFolder(folderPath);
+
+//     res.status(200).json({
+//       message: 'Uploaded files fetched successfully',
+//       files: files
+//     });
+//   } catch (err) {
+//     console.error('Error fetching uploaded files:', err);
+//     res.status(500).json({ message: 'Error fetching uploaded files' });
+//   }
+// };
+
 exports.listUploadedFiles = async (req, res) => {
   try {
-    const folderPath = path.join('uploads', 'new');
-    const files = await listFilesInFolder(folderPath);
+    const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+    let uploadedFiles = [];
+
+    if (fs.existsSync(uploadMappingPath)) {
+      const rawData = fs.readFileSync(uploadMappingPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        uploadedFiles = parsedData;
+      }
+    }
 
     res.status(200).json({
       message: 'Uploaded files fetched successfully',
-      files: files
+      files: uploadedFiles
     });
   } catch (err) {
     console.error('Error fetching uploaded files:', err);
     res.status(500).json({ message: 'Error fetching uploaded files' });
   }
 };
+
 
 
