@@ -1,5 +1,5 @@
 const { callUnstructAI } = require('../services/llmService');
-const { moveFileToProcessed } = require('../utils/pdfHelper');
+const { moveFileToProcessed, listFilesInFolder } = require('../utils/pdfHelper');
 const fs = require('fs');
 const path = require('path');
 
@@ -70,3 +70,20 @@ exports.processDocument = async (req, res) => {
     res.status(500).json({ message: 'Error processing document' });
   }
 };
+
+exports.listUploadedFiles = async (req, res) => {
+  try {
+    const folderPath = path.join('uploads', 'new');
+    const files = await listFilesInFolder(folderPath);
+
+    res.status(200).json({
+      message: 'Uploaded files fetched successfully',
+      files: files
+    });
+  } catch (err) {
+    console.error('Error fetching uploaded files:', err);
+    res.status(500).json({ message: 'Error fetching uploaded files' });
+  }
+};
+
+

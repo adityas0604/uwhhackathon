@@ -22,19 +22,18 @@ exports.moveFileToProcessed = (currentPath) => {
 };
 
 /**
- * (Optional Helper) List all PDF files from a given folder
- * Useful for Progress Page (to list documents)
+ * List all files in a folder
+ * @param {string} folderPath
+ * @returns {Promise<string[]>} Array of filenames
  */
-exports.listPDFFiles = (folderPath) => {
-  return new Promise((resolve, reject) => {
-    fs.readdir(folderPath, (err, files) => {
-      if (err) {
-        reject(err);
-      } else {
-        // Filter only .pdf files
-        const pdfFiles = files.filter(file => path.extname(file).toLowerCase() === '.pdf');
-        resolve(pdfFiles);
-      }
+exports.listFilesInFolder = (folderPath) => {
+    return new Promise((resolve, reject) => {
+      fs.readdir(folderPath, (err, files) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(files);
+        }
+      });
     });
-  });
-};
+  };
