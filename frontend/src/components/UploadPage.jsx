@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Spinner, Card } from 'react-bootstrap';
+import { Button, Form, Spinner, Card, Container } from 'react-bootstrap';
 import axios from 'axios';
 
 function UploadPage() {
@@ -26,7 +26,7 @@ function UploadPage() {
       });
 
       alert('File uploaded successfully!');
-      setSelectedFile(null); // Clear file
+      setSelectedFile(null);
     } catch (error) {
       console.error('Error uploading file:', error);
       alert('Error uploading file');
@@ -36,50 +36,61 @@ function UploadPage() {
   };
 
   return (
-    <div
+    <Container
+      fluid
       style={{
         height: 'calc(100vh - 56px)',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column',
+        padding: '2rem',
+        backgroundColor: '#fefefe',
         textAlign: 'center'
       }}
     >
+      <h2 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        Upload Your Document
+      </h2>
+      <p style={{ maxWidth: '600px', marginBottom: '2rem', color: '#666' }}>
+        This tool helps you process purchase orders and extract structured data
+        using AI. Upload a document to begin the workflow.
+      </p>
+
       <Form.Group controlId="formFile" className="mb-3">
         <Form.Label style={{ cursor: 'pointer' }}>
           {selectedFile ? (
-            // ✅ Show pretty filename card when file selected
-            <Card 
+            <Card
               style={{
-                width: '250px',
+                width: '280px',
                 padding: '20px',
-                textAlign: 'center',
                 backgroundColor: '#f8f9fa',
-                border: '2px solid #ced4da'
+                border: '2px dashed #ced4da',
+                textAlign: 'center'
               }}
             >
               <Card.Body>
                 <Card.Text>
-                  <strong>Selected File:</strong> <br />
+                  <strong>Selected File:</strong>
+                  <br />
                   {selectedFile.name}
                 </Card.Text>
               </Card.Body>
             </Card>
           ) : (
-            // ✅ Show plus button if no file selected
             <div
               style={{
-                width: '200px',
-                height: '200px',
-                border: '2px dashed gray',
-                borderRadius: '10px',
+                width: '220px',
+                height: '220px',
+                border: '2px dashed #6c757d',
+                borderRadius: '12px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                fontSize: '50px',
-                color: 'gray',
-                margin: '0 auto'
+                fontSize: '3rem',
+                color: '#6c757d',
+                backgroundColor: '#fafafa',
+                transition: '0.3s'
               }}
             >
               +
@@ -97,6 +108,7 @@ function UploadPage() {
         variant="primary"
         onClick={handleUpload}
         disabled={loading}
+        style={{ width: '150px' }}
       >
         {loading ? (
           <>
@@ -114,7 +126,7 @@ function UploadPage() {
           'Upload'
         )}
       </Button>
-    </div>
+    </Container>
   );
 }
 

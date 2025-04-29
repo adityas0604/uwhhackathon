@@ -1,203 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Form, Spinner } from 'react-bootstrap';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavbarComponent from './components/Navbar';
+import UploadPage from './components/UploadPage';
+import ProgressPage from './components/ProgressPage';
+import VerificationPage from './components/VerificationPage';
+import LandingAnimation from './components/LandingAnimation';
 
-function VerificationPage() {
-  const [files, setFiles] = useState([]);
-  const [editingFile, setEditingFile] = useState(null);
-  const [editedOutputs, setEditedOutputs] = useState({});
-  const [savingFile, setSavingFile] = useState(null);
+function App() {
+  const [showApp, setShowApp] = useState(false);
 
   useEffect(() => {
-    fetchVerificationFiles();
+    const alreadyVisited = localStorage.getItem('landingShown');
+    if (alreadyVisited) {
+      setShowApp(true); // skip animation
+    }
   }, []);
 
-  const fetchVerificationFiles = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/po/verification');
-      setFiles(response.data.files);
-    } catch (error) {
-      console.error('Error fetching verification files:', error);
-      alert('Error fetching verification files.');
-    }
-  };
-
-  const handleEditClick = (backendFilename) => {
-    if (editingFile === backendFilename) {
-      setEditingFile(null);
-      setEditedOutputs(prev => {
-        const updated = { ...prev };
-        delete updated[backendFilename];
-        return updated;
-      });
-    } else {
-      setEditingFile(backendFilename);
-    }
-  };
-
-  const handleOutputChange = (backendFilename, key, value) => {
-    setEditedOutputs(prev => ({
-      ...prev,
-      [backendFilename]: {
-        ...(prev[backendFilename] || {}),
-        [key]: value
-      }
-    }));
-  };
-
-  const handleSave = async (backendFilename) => {
-    try {
-      setSavingFile(backendFilename);
-
-      const originalFile = files.find(file => file.backendFilename === backendFilename);
-
-      if (!originalFile) {
-        alert('Original file not found.');
-        return;
-      }
-
-      const updatedOutput = {
-        ...originalFile.output,
-        ...editedOutputs[backendFilename]
-      };
-
-      await axios.put(`http://localhost:8000/api/po/edit/${backendFilename}`, {
-        output: updatedOutput
-      });
-
-      alert('Output saved successfully.');
-      setEditingFile(null);
-      setEditedOutputs(prev => {
-        const updated = { ...prev };
-        delete updated[backendFilename];
-        return updated;
-      });
-
-      fetchVerificationFiles();
-    } catch (error) {
-      console.error('Error saving output:', error);
-      alert('Error saving output.');
-    } finally {
-      setSavingFile(null);
-    }
-  };
-
-  const downloadFile = (backendFilename) => {
-    window.open(`http://localhost:8000/api/po/download/file/${backendFilename}`, '_blank');
-  };
-
-  const downloadOutput = (backendFilename) => {
-    window.open(`http://localhost:8000/api/po/download/output/${backendFilename}`, '_blank');
-  };
-
-  const handleReverify = async (backendFilename) => {
-    try {
-      await axios.post(`http://localhost:8000/api/po/reverify/${backendFilename}`);
-      alert('File sent back for reverification.');
-      fetchVerificationFiles();
-    } catch (error) {
-      console.error('Error sending file for reverification:', error);
-      alert('Error during reverification.');
-    }
+  const handleAnimationFinish = () => {
+    localStorage.setItem('landingShown', 'true'); // remember this visit
+    setShowApp(true);
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="mb-4 text-center">Verification Page</h2>
-
-      {files.length === 0 ? (
-        <p className="text-center">No processed files available.</p>
+    <>
+      {!showApp ? (
+        <LandingAnimation onFinish={handleAnimationFinish} />
       ) : (
-        <Row className="g-4">
-          {files.map((file, idx) => (
-            <Col key={idx} xs={12} sm={6} md={4}>
-              <Card className="h-100 shadow-sm d-flex flex-column justify-content-between">
-                <Card.Body>
-                  <Card.Title className="text-center">{file.originalFilename}</Card.Title>
-
-                  <Form>
-                    {Object.entries(file.output).map(([key, value]) => (
-                      <Form.Group key={key} className="mb-2">
-                        <Form.Label style={{ fontWeight: 'bold' }}>{key}</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows={2}
-                          value={
-                            editingFile === file.backendFilename
-                              ? editedOutputs[file.backendFilename]?.[key] ?? value
-                              : value
-                          }
-                          disabled={editingFile !== file.backendFilename}
-                          onChange={(e) => handleOutputChange(file.backendFilename, key, e.target.value)}
-                        />
-                      </Form.Group>
-                    ))}
-                  </Form>
-                </Card.Body>
-
-                <Card.Footer className="bg-white border-0">
-                  <div className="w-100 d-flex justify-content-between mb-2">
-                    <Button
-                      variant={editingFile === file.backendFilename ? 'secondary' : 'primary'}
-                      onClick={() => handleEditClick(file.backendFilename)}
-                    >
-                      {editingFile === file.backendFilename ? 'Cancel' : 'Edit'}
-                    </Button>
-
-                    <Button
-                      variant="warning"
-                      onClick={() => handleReverify(file.backendFilename)}
-                    >
-                      Send for Reverification
-                    </Button>
-
-                    <Button
-                      variant="success"
-                      disabled={
-                        !editedOutputs[file.backendFilename] ||
-                        editingFile !== file.backendFilename
-                      }
-                      onClick={() => handleSave(file.backendFilename)}
-                    >
-                      {savingFile === file.backendFilename ? (
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-2"
-                        />
-                      ) : null}
-                      Save
-                    </Button>
-                  </div>
-
-                  <div className="w-100 d-flex justify-content-between">
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      onClick={() => downloadFile(file.backendFilename)}
-                    >
-                      Download File
-                    </Button>
-
-                    <Button
-                      variant="outline-secondary"
-                      size="sm"
-                      onClick={() => downloadOutput(file.backendFilename)}
-                    >
-                      Download Output
-                    </Button>
-                  </div>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <Router>
+          <NavbarComponent />
+          <Routes>
+            <Route path="/" element={<UploadPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/verification" element={<VerificationPage />} />
+          </Routes>
+        </Router>
       )}
-    </Container>
+    </>
   );
 }
 
-export default VerificationPage;
+export default App;
