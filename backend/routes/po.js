@@ -21,5 +21,7 @@ const upload = multer({ storage: storage });
 
 // Route: POST /api/po/upload
 router.post('/upload', upload.single('file'), poController.uploadPO);
+router.post('/process/:filename', poController.processDocument);
+
 
 module.exports = router;
