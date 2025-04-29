@@ -70,64 +70,64 @@ exports.processDocument = async (req, res) => {
     const { filename } = req.params;
     const filePath = path.join('uploads/new', filename);
 
-    // Check if file exists
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: 'File not found' });
     }
 
-    // Read file buffer
     const fileBuffer = fs.readFileSync(filePath);
-
-    // Send to Unstruct AI for extraction
     const extractedData = await callUnstructAI(fileBuffer, filename);
 
-    // Move file to processed folder
     const newPath = await moveFileToProcessed(filePath);
 
-    // Path to structured outputs
-    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
-    let structuredOutputs = [];
-
-    // Read existing structured outputs
-    if (fs.existsSync(structuredOutputsPath)) {
-      const rawData = fs.readFileSync(structuredOutputsPath);
-      structuredOutputs = JSON.parse(rawData);
-    }
-
-    // Add new record
-    structuredOutputs.push({
-      filename: filename,
-      originalPath: newPath,
-      extractedData: extractedData
-    });
-
-    // Save updated structured outputs
-    fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
-
+    // Read uploadedFiles.json to get original filename
     const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+    let originalFilename = filename; // default fallback if not found
+
     if (fs.existsSync(uploadMappingPath)) {
       const rawData = fs.readFileSync(uploadMappingPath);
       let uploadedFiles = JSON.parse(rawData);
 
       if (Array.isArray(uploadedFiles)) {
-        // Remove entry where backendFilename matches
-        uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
+        const fileEntry = uploadedFiles.find(file => file.backendFilename === filename);
+        if (fileEntry) {
+          originalFilename = fileEntry.originalFilename;
+        }
 
-        // Save back the cleaned list
+        // Remove the processed file from uploadedFiles.json
+        uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
         fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
       }
     }
 
+    // Save extracted structured output along with filenames
+    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+    let structuredOutputs = [];
+
+    if (fs.existsSync(structuredOutputsPath)) {
+      const rawData = fs.readFileSync(structuredOutputsPath);
+      const parsedData = JSON.parse(rawData);
+      if (Array.isArray(parsedData)) {
+        structuredOutputs = parsedData;
+      }
+    }
+
+    structuredOutputs.push({
+      backendFilename: filename,
+      originalFilename: originalFilename,
+      extractedData: extractedData
+    });
+
+    fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
+
     res.status(200).json({
       message: 'Document processed and structured output saved successfully',
-      extractedData: extractedData,
+      extractedData
     });
   } catch (err) {
     console.error('Error processing document:', err);
     res.status(500).json({ message: 'Error processing document' });
   }
 };
-
 // exports.listUploadedFiles = async (req, res) => {
 //   try {
 //     const folderPath = path.join('uploads', 'new');
