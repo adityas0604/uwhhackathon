@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Form, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form, Spinner, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 
 function VerificationPage() {
@@ -25,7 +25,7 @@ function VerificationPage() {
   const handleEditClick = (backendFilename) => {
     if (editingFile === backendFilename) {
       setEditingFile(null);
-      setEditedOutputs((prev) => {
+      setEditedOutputs(prev => {
         const updated = { ...prev };
         delete updated[backendFilename];
         return updated;
@@ -36,12 +36,12 @@ function VerificationPage() {
   };
 
   const handleLineItemChange = (backendFilename, index, newValue) => {
-    setEditedOutputs((prev) => {
-      const prevFileEdits = prev[backendFilename] || {};
+    setEditedOutputs(prev => {
+      const fileEdits = prev[backendFilename] ?? {};
       return {
         ...prev,
         [backendFilename]: {
-          ...prevFileEdits,
+          ...fileEdits,
           [index]: newValue
         }
       };
@@ -52,20 +52,20 @@ function VerificationPage() {
     try {
       setSavingFile(backendFilename);
 
-      const originalFile = files.find((file) => file.backendFilename === backendFilename);
+      const originalFile = files.find(file => file.backendFilename === backendFilename);
       if (!originalFile) {
         alert('Original file not found.');
         return;
       }
 
-      const originalLines = originalFile.output.extarct_line || [];
+      const originalLines = originalFile.output.extarct_line;
       const editedLines = editedOutputs[backendFilename] || {};
       const mergedLines = originalLines.map((line, idx) => {
         if (editedLines[idx]) {
           try {
             return JSON.parse(editedLines[idx]);
           } catch (e) {
-            alert(`Line item ${idx + 1} contains invalid JSON.`);
+            alert(`Line item ${idx + 1} has invalid JSON.`);
             throw e;
           }
         }
@@ -83,7 +83,7 @@ function VerificationPage() {
 
       alert('Output saved successfully.');
       setEditingFile(null);
-      setEditedOutputs((prev) => {
+      setEditedOutputs(prev => {
         const updated = { ...prev };
         delete updated[backendFilename];
         return updated;
@@ -112,8 +112,8 @@ function VerificationPage() {
       alert('File sent back for reverification.');
       fetchVerificationFiles();
     } catch (error) {
-      console.error('Error during reverification:', error);
-      alert('Reverification failed.');
+      console.error('Error sending file for reverification:', error);
+      alert('Error during reverification.');
     }
   };
 
@@ -126,46 +126,46 @@ function VerificationPage() {
       ) : (
         <Row className="g-4">
           {files.map((file, idx) => (
-            <Col key={idx} xs={12} sm={6} md={4}>
-              <Card className="h-100 shadow-sm d-flex flex-column justify-content-between">
+            <Col key={idx} xs={12} sm={6} md={6}>
+              <Card className="h-100 shadow-sm" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
                 <Card.Body>
-                  <Card.Title className="text-center">{file.originalFilename}</Card.Title>
+                  <Card.Title className="text-center mb-3">{file.originalFilename}</Card.Title>
+                  {Array.isArray(file.output.extarct_line) &&
+                    file.output.extarct_line.map((lineItem, lineIdx) => {
+                      const isEditing = editingFile === file.backendFilename;
+                      const value = isEditing && editedOutputs[file.backendFilename]?.[lineIdx]
+                        ? editedOutputs[file.backendFilename][lineIdx]
+                        : JSON.stringify(lineItem, null, 2);
 
-                  <Form>
-                    {Array.isArray(file.output.extarct_line) &&
-                      file.output.extarct_line.map((lineItem, lineIdx) => {
-                        const currentValue =
-                          editingFile === file.backendFilename
-                            ? editedOutputs[file.backendFilename]?.[lineIdx] ??
-                              JSON.stringify(lineItem, null, 2)
-                            : JSON.stringify(lineItem, null, 2);
-
-                        return (
-                          <Form.Group key={lineIdx} className="mb-3">
-                            <Form.Label>
-                              <strong>Line Item #{lineIdx + 1}</strong>
-                            </Form.Label>
-                            <Form.Control
-                              as="textarea"
-                              rows={4}
-                              value={currentValue}
-                              disabled={editingFile !== file.backendFilename}
-                              onChange={(e) =>
-                                handleLineItemChange(
-                                  file.backendFilename,
-                                  lineIdx,
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </Form.Group>
-                        );
-                      })}
-                  </Form>
+                      return (
+                        <Card className="mb-2" key={lineIdx} style={{ backgroundColor: '#f9f9f9', fontSize: '0.9rem' }}>
+                          <Card.Header><strong>Line Item #{lineIdx + 1}</strong></Card.Header>
+                          <Card.Body style={{ padding: '10px' }}>
+                            {isEditing ? (
+                              <Form.Control
+                                as="textarea"
+                                rows={4}
+                                style={{ fontSize: '0.85rem' }}
+                                value={value}
+                                onChange={(e) => handleLineItemChange(file.backendFilename, lineIdx, e.target.value)}
+                              />
+                            ) : (
+                              <ListGroup variant="flush">
+                                {Object.entries(lineItem).map(([key, val]) => (
+                                  <ListGroup.Item key={key} style={{ padding: '4px 8px' }}>
+                                    <strong>{key}:</strong> {val || '—'}
+                                  </ListGroup.Item>
+                                ))}
+                              </ListGroup>
+                            )}
+                          </Card.Body>
+                        </Card>
+                      );
+                    })}
                 </Card.Body>
 
-                <Card.Footer className="bg-white border-0">
-                  <div className="w-100 d-flex justify-content-between mb-2">
+                <Card.Footer className="bg-white border-0 d-flex flex-column gap-2 p-3">
+                  <div className="d-flex justify-content-between">
                     <Button
                       variant={editingFile === file.backendFilename ? 'secondary' : 'primary'}
                       onClick={() => handleEditClick(file.backendFilename)}
@@ -202,7 +202,7 @@ function VerificationPage() {
                     </Button>
                   </div>
 
-                  <div className="w-100 d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">
                     <Button
                       variant="outline-primary"
                       size="sm"

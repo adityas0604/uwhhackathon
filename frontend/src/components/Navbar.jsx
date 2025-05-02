@@ -11,9 +11,8 @@ function NavbarComponent() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Upload</Nav.Link>
-            <Nav.Link as={Link} to="/progress">Progress</Nav.Link>
-            <Nav.Link as={Link} to="/verification">Verification</Nav.Link>
+          <Nav.Link as={Link} to="/">Dashboard</Nav.Link> {/* ✅ Updated */}
+          <Nav.Link as={Link} to="/verification">Verification</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         </Container>
