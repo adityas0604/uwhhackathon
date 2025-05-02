@@ -67,27 +67,32 @@ function DashboardPage() {
 
   return (
     <Container className="mt-5">
-      <h2 className="mb-4 text-center">Dashboard</h2>
+      <h2 className="mb-4 fw-bold text-start" style={{ fontSize: '1.75rem' }}>
+        Dashboard
+      </h2>
 
       <Card className="mb-5 p-4 shadow-sm">
-        <h5 className="mb-3">Upload a Document</h5>
+        <h5 className="mb-3 fw-semibold text-start">Upload a Document</h5>
+
         <Form.Group controlId="formFile" className="mb-3 d-flex flex-column align-items-center">
-          <Form.Label style={{ cursor: 'pointer' }}>
+          <Form.Label style={{ cursor: 'pointer', width: '100%' }}>
             <div
               style={{
-                width: '220px',
-                height: '220px',
+                width: '100%',
+                maxWidth: '240px',
+                height: '200px',
                 border: '2px dashed #6c757d',
                 borderRadius: '12px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                fontSize: '1rem',
+                fontSize: '1.1rem',
                 color: '#6c757d',
                 backgroundColor: '#fafafa',
                 transition: '0.3s',
                 padding: '1rem',
-                textAlign: 'center'
+                textAlign: 'center',
+                margin: '0 auto'
               }}
             >
               {selectedFile ? (
@@ -130,7 +135,7 @@ function DashboardPage() {
         )}
       </Card>
 
-      <h5 className="mb-3">Uploaded Files (Pending Processing)</h5>
+      <h5 className="mb-3 fw-semibold text-start">Uploaded Files (Pending Processing)</h5>
       <Row className="g-4">
         {uploadedFiles.map((file, idx) => (
           <Col key={idx} xs={12} sm={6} md={4}>
