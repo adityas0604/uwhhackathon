@@ -2,6 +2,8 @@ const { callUnstructAI } = require('../services/llmService');
 const { moveFileToProcessed, listFilesInFolder } = require('../utils/pdfHelper');
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
+
 
 // Upload API
 // exports.uploadPO = async (req, res) => {
@@ -68,66 +70,94 @@ exports.uploadPO = async (req, res) => {
 exports.processDocument = async (req, res) => {
   try {
     const { filename } = req.params;
-    const filePath = path.join('uploads/new', filename);
 
-    if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ message: 'File not found' });
-    }
+    // Absolute path to Python script
+    const scriptPath = path.resolve(__dirname, '../../worker/run_task.py');
 
-    const fileBuffer = fs.readFileSync(filePath);
-    const extractedData = await callUnstructAI(fileBuffer, filename);
+    // Absolute path to virtualenv Python (optional but recommended)
+    const python = path.resolve(__dirname, '../../worker/venv/bin/python');
 
-    const newPath = await moveFileToProcessed(filePath);
+    // Build the full command
+    const command = `${python} ${scriptPath} ${filename}`;
 
-    // Read uploadedFiles.json to get original filename
-    const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
-    let originalFilename = filename; // default fallback if not found
-
-    if (fs.existsSync(uploadMappingPath)) {
-      const rawData = fs.readFileSync(uploadMappingPath);
-      let uploadedFiles = JSON.parse(rawData);
-
-      if (Array.isArray(uploadedFiles)) {
-        const fileEntry = uploadedFiles.find(file => file.backendFilename === filename);
-        if (fileEntry) {
-          originalFilename = fileEntry.originalFilename;
-        }
-
-        // Remove the processed file from uploadedFiles.json
-        uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
-        fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
+    // Run the command
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error('❌ Error triggering Celery task:', stderr || error.message);
+        return res.status(500).json({ message: 'Failed to start document processing.', error: stderr });
+      } else {
+        console.log('✅ Celery task started:', stdout.trim());
+        return res.status(202).json({ message: 'Document processing started via Celery.' });
       }
-    }
-
-    // Save extracted structured output along with filenames
-    const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
-    let structuredOutputs = [];
-
-    if (fs.existsSync(structuredOutputsPath)) {
-      const rawData = fs.readFileSync(structuredOutputsPath);
-      const parsedData = JSON.parse(rawData);
-      if (Array.isArray(parsedData)) {
-        structuredOutputs = parsedData;
-      }
-    }
-
-    structuredOutputs.push({
-      backendFilename: filename,
-      originalFilename: originalFilename,
-      extractedData: extractedData
-    });
-
-    fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
-
-    res.status(200).json({
-      message: 'Document processed and structured output saved successfully',
-      extractedData
     });
   } catch (err) {
-    console.error('Error processing document:', err);
-    res.status(500).json({ message: 'Error processing document' });
+    console.error('❌ Internal error in processDocument:', err);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 };
+// exports.processDocument = async (req, res) => {
+//   try {
+//     const { filename } = req.params;
+//     const filePath = path.join('uploads/new', filename);
+
+//     if (!fs.existsSync(filePath)) {
+//       return res.status(404).json({ message: 'File not found' });
+//     }
+
+//     const fileBuffer = fs.readFileSync(filePath);
+//     const extractedData = await callUnstructAI(fileBuffer, filename);
+
+//     const newPath = await moveFileToProcessed(filePath);
+
+//     // Read uploadedFiles.json to get original filename
+//     const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+//     let originalFilename = filename; // default fallback if not found
+
+//     if (fs.existsSync(uploadMappingPath)) {
+//       const rawData = fs.readFileSync(uploadMappingPath);
+//       let uploadedFiles = JSON.parse(rawData);
+
+//       if (Array.isArray(uploadedFiles)) {
+//         const fileEntry = uploadedFiles.find(file => file.backendFilename === filename);
+//         if (fileEntry) {
+//           originalFilename = fileEntry.originalFilename;
+//         }
+
+//         // Remove the processed file from uploadedFiles.json
+//         uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
+//         fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
+//       }
+//     }
+
+//     // Save extracted structured output along with filenames
+//     const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
+//     let structuredOutputs = [];
+
+//     if (fs.existsSync(structuredOutputsPath)) {
+//       const rawData = fs.readFileSync(structuredOutputsPath);
+//       const parsedData = JSON.parse(rawData);
+//       if (Array.isArray(parsedData)) {
+//         structuredOutputs = parsedData;
+//       }
+//     }
+
+//     structuredOutputs.push({
+//       backendFilename: filename,
+//       originalFilename: originalFilename,
+//       extractedData: extractedData
+//     });
+
+//     fs.writeFileSync(structuredOutputsPath, JSON.stringify(structuredOutputs, null, 2));
+
+//     res.status(200).json({
+//       message: 'Document processed and structured output saved successfully',
+//       extractedData
+//     });
+//   } catch (err) {
+//     console.error('Error processing document:', err);
+//     res.status(500).json({ message: 'Error processing document' });
+//   }
+// };
 
 exports.listUploadedFiles = async (req, res) => {
   try {

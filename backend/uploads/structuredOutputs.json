@@ -1,66 +1,44 @@
 [
   {
-    "backendFilename": "file-1745967871945-940166631.pdf",
-    "originalFilename": "Hard -3.pdf",
+    "backendFilename": "file-1746159257046-449108461.pdf",
+    "originalFilename": "file-1746159257046-449108461.pdf",
     "extractedData": {
-      "message": {
-        "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=fb12f537-456c-42d0-90e4-2a70d9dad390",
-        "error": null,
-        "result": [
-          {
-            "file": "file-1745967871945-940166631.pdf",
-            "status": "Success",
-            "result": {
-              "output": {
-                "extarct_line": [
-                  {
-                    "Cost": "$41.71",
-                    "Ext Cost": "$2919.70",
-                    "Item #": "6268188",
-                    "Item Description": "Steel Bolt M6 50mm Galvanized Fine",
-                    "Qty": "70",
-                    "Vendor Part #": ""
-                  },
-                  {
-                    "Cost": "$42.c13",
-                    "Ext Cost": "$42.13",
-                    "Item #": "6268188",
-                    "Item Description": "Titanium Nut 1/4\" 50mm Uncoated Fine",
-                    "Qty": "1",
-                    "Vendor Part #": "-"
-                  },
-                  {
-                    "Cost": "$41.71",
-                    "Ext Cost": "$583.94",
-                    "Item #": "6268188",
-                    "Item Description": "Brass Stud 1/4\" 40mm Uncoated Coarse",
-                    "Qty": "14",
-                    "Vendor Part #": ""
-                  }
-                ]
-              }
-            },
-            "metadata": {
-              "source_name": "file-1745967871945-940166631.pdf",
-              "source_hash": "e5520db629abc4e53b26b1a6e8e9b2f4c40d45e62e893ae25c90ea2184bc10fb",
-              "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "fb12f537-456c-42d0-90e4-2a70d9dad390",
-              "file_execution_id": "2e4924dc-8491-4f35-aa3c-ae988641ce01",
-              "tags": [],
-              "total_elapsed_time": 9.16656,
-              "tool_metadata": [
-                {
-                  "tool_name": "structure_tool",
-                  "elapsed_time": 9.166554,
-                  "output_type": "JSON"
-                }
-              ]
-            }
-          }
-        ]
-      }
+      "type": "client_error",
+      "errors": [
+        {
+          "code": "error",
+          "detail": "Unauthorized",
+          "attr": null
+        }
+      ]
+    }
+  },
+  {
+    "backendFilename": "file-1746159437472-746708551.pdf",
+    "originalFilename": "file-1746159437472-746708551.pdf",
+    "extractedData": {
+      "type": "client_error",
+      "errors": [
+        {
+          "code": "error",
+          "detail": "Unauthorized",
+          "attr": null
+        }
+      ]
+    }
+  },
+  {
+    "backendFilename": "file-1746159828364-711752178.pdf",
+    "originalFilename": "file-1746159828364-711752178.pdf",
+    "extractedData": {
+      "type": "client_error",
+      "errors": [
+        {
+          "code": "error",
+          "detail": "Unauthorized",
+          "attr": null
+        }
+      ]
     }
   }
 ]
