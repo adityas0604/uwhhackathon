@@ -68,6 +68,22 @@ exports.processDocument = async (req, res) => {
   try {
     const { filename } = req.params;
 
+    const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
+
+    // ✅ Update processing: true
+    if (fs.existsSync(uploadMappingPath)) {
+      const rawData = fs.readFileSync(uploadMappingPath);
+      let uploadedFiles = JSON.parse(rawData);
+
+      uploadedFiles = uploadedFiles.map(file =>
+        file.backendFilename === filename
+          ? { ...file, processing: true }
+          : file
+      );
+
+      fs.writeFileSync(uploadMappingPath, JSON.stringify(uploadedFiles, null, 2));
+    }
+
     await processingQueue.add('process-file', { backendFilename: filename });
 
     res.status(202).json({ message: 'File added to processing queue' });

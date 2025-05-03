@@ -1,21 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Container, Row, Col, Button, Form, Spinner, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 function DashboardPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [processingFile, setProcessingFile] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const prevFilesRef = useRef([]);
 
   useEffect(() => {
     fetchUploadedFiles();
+
+    const interval = setInterval(() => {
+      fetchUploadedFiles();
+    }, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   const fetchUploadedFiles = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/po/uploads');
-      setUploadedFiles(response.data.files);
+      const newFiles = response.data.files;
+
+      // Check if there's a real difference before updating state
+      const prevFiles = prevFilesRef.current;
+      const changed = JSON.stringify(prevFiles) !== JSON.stringify(newFiles);
+
+      if (changed) {
+        setUploadedFiles(newFiles);
+        prevFilesRef.current = newFiles;
+      }
     } catch (error) {
       console.error('Error fetching uploaded files:', error);
     }
@@ -53,15 +68,11 @@ function DashboardPage() {
 
   const handleProcess = async (filename) => {
     try {
-      setProcessingFile(filename);
       await axios.post(`http://localhost:8000/api/po/process/${filename}`);
-      alert('Document processed successfully!');
-      fetchUploadedFiles();
+      fetchUploadedFiles(); // Immediately refresh after enqueue
     } catch (error) {
       console.error('Error processing document:', error);
       alert('Processing failed.');
-    } finally {
-      setProcessingFile(null);
     }
   };
 
@@ -141,9 +152,7 @@ function DashboardPage() {
           <Col key={idx} xs={12} sm={6} md={4}>
             <Card className="h-100 shadow-sm">
               <Card.Body className="d-flex flex-column align-items-center">
-                <Card.Title className="text-center">
-                  {file.originalFilename}
-                </Card.Title>
+                <Card.Title className="text-center">{file.originalFilename}</Card.Title>
                 <Card.Text style={{ fontSize: '0.85em', color: 'gray' }}>
                   {file.backendFilename}
                 </Card.Text>
@@ -152,9 +161,9 @@ function DashboardPage() {
                 <Button
                   variant="success"
                   onClick={() => handleProcess(file.backendFilename)}
-                  disabled={processingFile !== null}
+                  disabled={file.processing}
                 >
-                  {processingFile === file.backendFilename ? (
+                  {file.processing ? (
                     <>
                       <Spinner
                         as="span"
