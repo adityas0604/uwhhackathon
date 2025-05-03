@@ -1,15 +1,33 @@
 [
   {
-    "backendFilename": "file-1745967871945-940166631.pdf",
+    "backendFilename": "file-1746229550542-886075449.pdf",
+    "originalFilename": "Easy - 1.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "ERROR",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=9524ab1a-761d-4ffe-ac6f-46952d1a790f",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746229550542-886075449.pdf",
+            "status": "Failed",
+            "error": "Error processing file 'file-1746229550542-886075449.pdf': Error running tool 'cd6f488e-dfc0-4d8b-badc-84a2295d0887' for run 'b00a39d2-e38b-4a03-aa49-2e39fe803d2c' of execution '9524ab1a-761d-4ffe-ac6f-46952d1a790f'. Check logs for more information"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746229712434-273564945.pdf",
     "originalFilename": "Hard -3.pdf",
     "extractedData": {
       "message": {
         "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=fb12f537-456c-42d0-90e4-2a70d9dad390",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=72be1079-0ea5-4b91-89e9-d6a75c7284af",
         "error": null,
         "result": [
           {
-            "file": "file-1745967871945-940166631.pdf",
+            "file": "file-1746229712434-273564945.pdf",
             "status": "Success",
             "result": {
               "output": {
@@ -23,7 +41,7 @@
                     "Vendor Part #": ""
                   },
                   {
-                    "Cost": "$42.c13",
+                    "Cost": "$42.13",
                     "Ext Cost": "$42.13",
                     "Item #": "6268188",
                     "Item Description": "Titanium Nut 1/4\" 50mm Uncoated Fine",
@@ -42,18 +60,482 @@
               }
             },
             "metadata": {
-              "source_name": "file-1745967871945-940166631.pdf",
+              "source_name": "file-1746229712434-273564945.pdf",
               "source_hash": "e5520db629abc4e53b26b1a6e8e9b2f4c40d45e62e893ae25c90ea2184bc10fb",
               "organization_id": "org_TVqffEyFhVLX91G2",
               "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "fb12f537-456c-42d0-90e4-2a70d9dad390",
-              "file_execution_id": "2e4924dc-8491-4f35-aa3c-ae988641ce01",
+              "execution_id": "72be1079-0ea5-4b91-89e9-d6a75c7284af",
+              "file_execution_id": "e208caf6-e35f-45bf-9476-1ab68c736fc5",
               "tags": [],
-              "total_elapsed_time": 9.16656,
+              "total_elapsed_time": 9.188511,
               "tool_metadata": [
                 {
                   "tool_name": "structure_tool",
-                  "elapsed_time": 9.166554,
+                  "elapsed_time": 9.188506,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746229756643-900293977.pdf",
+    "originalFilename": "Easy - 1.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=61d6641c-32af-4503-9856-39faed009a5e",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746229756643-900293977.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Amount": "143",
+                    "Request Item": "Brass Nut 1/2\" 20mm Galvanized Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "364",
+                    "Request Item": "Stainless Steel Stud M6 10mm Galvanized Wood",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "458",
+                    "Request Item": "Aluminum Screw M10 30mm Nickel Plated Fine",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "612",
+                    "Request Item": "Steel Washer M6 20mm Uncoated Machine",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "503",
+                    "Request Item": "Stainless Steel Nut M5 50mm Nickel Plated Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746229756643-900293977.pdf",
+              "source_hash": "46586763ba0d1556e7b1a1a05785b97ea9e1ff729b567d52fa967f33fc523841",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "61d6641c-32af-4503-9856-39faed009a5e",
+              "file_execution_id": "dc04e5f4-ceca-42c1-9391-e234e0f0d61b",
+              "tags": [],
+              "total_elapsed_time": 14.470499,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 14.470495,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230452337-945302224.pdf",
+    "originalFilename": "Easy - 2.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=c586f895-024c-4bbe-9bec-a10220a62eaa",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230452337-945302224.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Amount": "117",
+                    "Request Item": "Brass Screw M5 10mm Uncoated Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "25",
+                    "Request Item": "Aluminum Screw M4 40mm Zinc Plated Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "291",
+                    "Request Item": "Titanium Anchor 1/2\" 40mm Nickel Plated Machine",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "46",
+                    "Request Item": "Aluminum Screw M12 20mm Uncoated Wood",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "505",
+                    "Request Item": "Titanium Screw M6 40mm Zinc Plated Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230452337-945302224.pdf",
+              "source_hash": "841cd2d26fcf98457e147b7180adce22a693791b09adc2e4eac9fa5530dbd266",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "c586f895-024c-4bbe-9bec-a10220a62eaa",
+              "file_execution_id": "cf45a903-6104-471e-9b26-509110d376f2",
+              "tags": [],
+              "total_elapsed_time": 24.26642,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 24.266413,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230641372-848489588.pdf",
+    "originalFilename": "Hard -3.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=09dace68-eb85-4f4d-acfa-838663eeac3c",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230641372-848489588.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Cost": "$41.71",
+                    "Ext Cost": "$2919.70",
+                    "Item #": "6268188",
+                    "Item Description": "Steel Bolt M6 50mm Galvanized Fine",
+                    "Qty": "70",
+                    "Vendor Part #": ""
+                  },
+                  {
+                    "Cost": "$42.13",
+                    "Ext Cost": "$42.13",
+                    "Item #": "6268188",
+                    "Item Description": "Titanium Nut 1/4\" 50mm Uncoated Fine",
+                    "Qty": "1",
+                    "Vendor Part #": "-"
+                  },
+                  {
+                    "Cost": "$41.71",
+                    "Ext Cost": "$583.94",
+                    "Item #": "6268188",
+                    "Item Description": "Brass Stud 1/4\" 40mm Uncoated Coarse",
+                    "Qty": "14",
+                    "Vendor Part #": ""
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230641372-848489588.pdf",
+              "source_hash": "e5520db629abc4e53b26b1a6e8e9b2f4c40d45e62e893ae25c90ea2184bc10fb",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "09dace68-eb85-4f4d-acfa-838663eeac3c",
+              "file_execution_id": "16fc7ada-b089-4111-9282-591192b695cc",
+              "tags": [],
+              "total_elapsed_time": 8.821206,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 8.821201,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230651508-150090105.pdf",
+    "originalFilename": "Hard - 2.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=96ec47d1-2cbc-4e8b-b273-465c1234bb95",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230651508-150090105.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Description": "Titanium Washer M4 30mm Galvanized Fine",
+                    "Line": "1",
+                    "Manufacturer Code": "909854",
+                    "Per": "ea",
+                    "Price": "90.866",
+                    "Product Code": "zZ_SODECK_79",
+                    "Quantity": "25 ea",
+                    "Total": "2,271.65"
+                  },
+                  {
+                    "Description": "Aluminum Stud M4 30mm Uncoated Coarse",
+                    "Line": "2",
+                    "Manufacturer Code": "852248",
+                    "Per": "ea",
+                    "Price": "57.04",
+                    "Product Code": "zz_SODECK_79",
+                    "Quantity": "8 ea",
+                    "Total": "456.32"
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230651508-150090105.pdf",
+              "source_hash": "144b3f489df120fd3b4a81dd86a6f346bc071675dad763003859e554be733d27",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "96ec47d1-2cbc-4e8b-b273-465c1234bb95",
+              "file_execution_id": "f6bde8b3-976a-46b2-af78-568611aed1c3",
+              "tags": [],
+              "total_elapsed_time": 27.585517,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 27.585513,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230659508-370648221.pdf",
+    "originalFilename": "Medium - 1.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=0c96386c-beca-4637-b55b-9c647e9db0af",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230659508-370648221.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Amount": "143",
+                    "Request Item": "Brass Nut 1/2\" 20mm Galvanized Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "364",
+                    "Request Item": "Stainless Steel Stud M6 10mm Galvanized Wood",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "458",
+                    "Request Item": "Aluminum Screw M10 30mm Nickel Plated Fine",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "612",
+                    "Request Item": "Steel Washer M6 20mm Uncoated Machine",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Amount": "503",
+                    "Request Item": "Stainless Steel Nut M5 50mm Nickel Plated Coarse",
+                    "Total": null,
+                    "Unit Price": null
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230659508-370648221.pdf",
+              "source_hash": "ca55d1c9a69ae73d0b1da6127c9e7bf1baa0bd66f5614cf388cdb973210088f8",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "0c96386c-beca-4637-b55b-9c647e9db0af",
+              "file_execution_id": "75619c8f-f3e7-490f-9f9b-1a5a51ac1de5",
+              "tags": [],
+              "total_elapsed_time": 26.311027,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 26.311023,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230692940-405797019.pdf",
+    "originalFilename": "Easy - 2.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=c745b573-983c-4699-953d-e2afc7b6ce75",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230692940-405797019.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Amount": "117",
+                    "Request Item": "Brass Screw M5 10mm Uncoated Coarse"
+                  },
+                  {
+                    "Amount": "25",
+                    "Request Item": "Aluminum Screw M4 40mm Zinc Plated Coarse"
+                  },
+                  {
+                    "Amount": "291",
+                    "Request Item": "Titanium Anchor 1/2\" 40mm Nickel Plated Machine"
+                  },
+                  {
+                    "Amount": "46",
+                    "Request Item": "Aluminum Screw M12 20mm Uncoated Wood"
+                  },
+                  {
+                    "Amount": "505",
+                    "Request Item": "Titanium Screw M6 40mm Zinc Plated Coarse"
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230692940-405797019.pdf",
+              "source_hash": "841cd2d26fcf98457e147b7180adce22a693791b09adc2e4eac9fa5530dbd266",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "c745b573-983c-4699-953d-e2afc7b6ce75",
+              "file_execution_id": "97d211a4-686e-437b-863f-0eae61e664db",
+              "tags": [],
+              "total_elapsed_time": 8.847672,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 8.847667,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "backendFilename": "file-1746230700168-144996418.pdf",
+    "originalFilename": "Medium - 2.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=a7d266da-a6b4-451b-8b72-3d36af7f7763",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746230700168-144996418.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Item Description": "Brass Screw M5 10mm Uncoated Coarse",
+                    "Quantity": "117",
+                    "Total": null,
+                    "Unit Price": "42.2"
+                  },
+                  {
+                    "Item Description": "Aluminum Screw M4 40mm Zinc Plated Coarse",
+                    "Quantity": "25",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Item Description": "Titanium Anchor 1/2\" 40mm Nickel Plated Machine",
+                    "Quantity": "291",
+                    "Total": null,
+                    "Unit Price": null
+                  },
+                  {
+                    "Item Description": "Aluminum Screw M12 20mm Uncoated Wood",
+                    "Quantity": "46",
+                    "Total": null,
+                    "Unit Price": "55.2"
+                  },
+                  {
+                    "Item Description": "Titanium Screw M6 40mm Zinc Plated Coarse",
+                    "Quantity": "505",
+                    "Total": null,
+                    "Unit Price": null
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746230700168-144996418.pdf",
+              "source_hash": "915b4850b7524fc581becd5ada64f77a9a85bab5d289dffd1555fbeb0db8a193",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "a7d266da-a6b4-451b-8b72-3d36af7f7763",
+              "file_execution_id": "6b8049f2-a71a-4a22-9965-e138ab36c8fe",
+              "tags": [],
+              "total_elapsed_time": 9.596777,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 9.59677,
                   "output_type": "JSON"
                 }
               ]
