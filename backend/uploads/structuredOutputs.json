@@ -275,5 +275,23 @@
         ]
       }
     }
+  },
+  {
+    "backendFilename": "file-1746246032573-932109722.pdf",
+    "originalFilename": "Software_Engineer_Resume.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "ERROR",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=04ad265c-b48f-48b8-9996-ef2c09fec252",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746246032573-932109722.pdf",
+            "status": "Failed",
+            "error": "Error processing file 'file-1746246032573-932109722.pdf': Error running tool 'cd6f488e-dfc0-4d8b-badc-84a2295d0887' for run '5b609593-9c53-47da-b0f3-f25b3dfcda9d' of execution '04ad265c-b48f-48b8-9996-ef2c09fec252'. Check logs for more information"
+          }
+        ]
+      }
+    }
   }
 ]
