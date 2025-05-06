@@ -3,6 +3,7 @@ import {
   Container, Row, Col, Button, Form, Spinner, Card, Toast, ToastContainer
 } from 'react-bootstrap';
 import axios from 'axios';
+import ToastNotifier from '../components/ToastNotifier';
 
 function DashboardPage() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -82,6 +83,7 @@ function DashboardPage() {
   };
 
   return (
+    <>
     <Container className="mt-5">
       <h2 className="mb-4 fw-bold text-start" style={{ fontSize: '1.75rem' }}>
         Dashboard
@@ -175,17 +177,16 @@ function DashboardPage() {
           </Col>
         ))}
       </Row>
-
-      {/* Toast Notification UI */}
-      <ToastContainer position="top-end" className="p-3">
-        <Toast bg="light" show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">Document Processor</strong>
-          </Toast.Header>
-          <Toast.Body>{toastMessage}</Toast.Body>
-        </Toast>
-      </ToastContainer>
     </Container>
+     {/* Toast Notification UI */}
+     <ToastNotifier
+        show={showToast}
+        message={toastMessage}
+        onClose={() => setShowToast(false)}
+        title="Document Processor"
+        variant="light"
+      />
+    </>
   );
 }
 
