@@ -1,33 +1,34 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Container, Row, Col, Button, Form, Spinner, Card } from 'react-bootstrap';
+import {
+  Container, Row, Col, Button, Form, Spinner, Card, Toast, ToastContainer
+} from 'react-bootstrap';
 import axios from 'axios';
 
 function DashboardPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
   const prevFilesRef = useRef([]);
 
   useEffect(() => {
     fetchUploadedFiles();
-
-    const interval = setInterval(() => {
-      fetchUploadedFiles();
-    }, 5000); // Poll every 5 seconds
-
+    const interval = setInterval(() => fetchUploadedFiles(), 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const showNotification = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
 
   const fetchUploadedFiles = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/po/uploads');
       const newFiles = response.data.files;
-
-      // Check if there's a real difference before updating state
       const prevFiles = prevFilesRef.current;
-      const changed = JSON.stringify(prevFiles) !== JSON.stringify(newFiles);
-
-      if (changed) {
+      if (JSON.stringify(prevFiles) !== JSON.stringify(newFiles)) {
         setUploadedFiles(newFiles);
         prevFilesRef.current = newFiles;
       }
@@ -41,7 +42,10 @@ function DashboardPage() {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile) return alert('Please select a file to upload.');
+    if (!selectedFile) {
+      showNotification('⚠️ Please select a file to upload.');
+      return;
+    }
 
     const formData = new FormData();
     formData.append('file', selectedFile);
@@ -51,12 +55,12 @@ function DashboardPage() {
       await axios.post('http://localhost:8000/api/po/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      alert('File uploaded successfully!');
+      showNotification('✅ File uploaded successfully!');
       setSelectedFile(null);
       fetchUploadedFiles();
     } catch (error) {
       console.error('Upload failed:', error);
-      alert('Upload failed.');
+      showNotification('❌ Upload failed.');
     } finally {
       setUploading(false);
     }
@@ -69,10 +73,11 @@ function DashboardPage() {
   const handleProcess = async (filename) => {
     try {
       await axios.post(`http://localhost:8000/api/po/process/${filename}`);
-      fetchUploadedFiles(); // Immediately refresh after enqueue
+      showNotification('🚀 Document sent for processing.');
+      fetchUploadedFiles();
     } catch (error) {
       console.error('Error processing document:', error);
-      alert('Processing failed.');
+      showNotification('❌ Processing failed.');
     }
   };
 
@@ -125,14 +130,7 @@ function DashboardPage() {
             <Button variant="success" onClick={handleUpload} disabled={uploading}>
               {uploading ? (
                 <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    className="me-2"
-                  />
+                  <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
                   Uploading...
                 </>
               ) : (
@@ -165,14 +163,7 @@ function DashboardPage() {
                 >
                   {file.processing ? (
                     <>
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-2"
-                      />
+                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
                       Processing...
                     </>
                   ) : (
@@ -184,6 +175,16 @@ function DashboardPage() {
           </Col>
         ))}
       </Row>
+
+      {/* Toast Notification UI */}
+      <ToastContainer position="top-end" className="p-3">
+        <Toast bg="light" show={showToast} onClose={() => setShowToast(false)} delay={3000} autohide>
+          <Toast.Header>
+            <strong className="me-auto">Document Processor</strong>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Container>
   );
 }
