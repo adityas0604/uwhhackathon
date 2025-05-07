@@ -28,7 +28,7 @@ router.get('/verification', poController.getVerificationFiles);
 router.put('/edit/:filename', poController.editOutput);
 router.get('/download/file/:filename', poController.downloadFile);
 router.get('/download/output/:filename', poController.downloadOutput);
-
+router.delete('/delete/:filename', poController.deleteUploadedFile);
 
 
 
