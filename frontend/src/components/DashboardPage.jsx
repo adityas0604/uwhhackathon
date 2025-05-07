@@ -38,6 +38,18 @@ function DashboardPage() {
     }
   };
 
+  const handleDelete = async (filename) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/po/delete/${filename}`);
+      showNotification('🗑️ File deleted successfully.');
+      fetchUploadedFiles();
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      showNotification('❌ Error deleting file.');
+    }
+  };
+  
+
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -148,35 +160,51 @@ function DashboardPage() {
 
       <h5 className="mb-3 fw-semibold text-start">Uploaded Files (Pending Processing)</h5>
       <Row className="g-4">
-        {uploadedFiles.map((file, idx) => (
-          <Col key={idx} xs={12} sm={6} md={4}>
-            <Card className="h-100 shadow-sm">
-              <Card.Body className="d-flex flex-column align-items-center">
-                <Card.Title className="text-center">{file.originalFilename}</Card.Title>
-                <Card.Text style={{ fontSize: '0.85em', color: 'gray' }}>
-                  {file.backendFilename}
-                </Card.Text>
-              </Card.Body>
-              <Card.Footer className="text-center">
-                <Button
-                  variant="success"
-                  onClick={() => handleProcess(file.backendFilename)}
-                  disabled={file.processing}
-                >
-                  {file.processing ? (
-                    <>
-                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
-                      Processing...
-                    </>
-                  ) : (
-                    'Process'
-                  )}
-                </Button>
-              </Card.Footer>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {uploadedFiles.map((file, idx) => (
+        <Col key={idx} xs={12} sm={6} md={4}>
+          <Card className="h-100 shadow-sm">
+            <Card.Body className="d-flex flex-column align-items-center">
+              <Card.Title className="text-center">{file.originalFilename}</Card.Title>
+              <Card.Text style={{ fontSize: '0.85em', color: 'gray' }}>
+                {file.backendFilename}
+              </Card.Text>
+            </Card.Body>
+
+            <Card.Footer className="d-flex justify-content-around">
+              <Button
+                variant="success"
+                onClick={() => handleProcess(file.backendFilename)}
+                disabled={file.processing}
+              >
+                {file.processing ? (
+                  <>
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    Processing...
+                  </>
+                ) : (
+                  'Process'
+                )}
+              </Button>
+
+              <Button
+                variant="secondary"
+                onClick={() => handleDelete(file.backendFilename)}
+              >
+                Delete
+              </Button>
+            </Card.Footer>
+          </Card>
+        </Col>
+      ))}
+  </Row>
+
     </Container>
      {/* Toast Notification UI */}
      <ToastNotifier

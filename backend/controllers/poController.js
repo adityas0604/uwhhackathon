@@ -350,3 +350,30 @@ exports.downloadOutput = (req, res) => {
   }
 };
 
+exports.deleteUploadedFile = async (req, res) => {
+  try {
+    const { filename } = req.params;
+    const uploadPath = path.join('uploads', 'new', filename);
+    const uploadedFilesPath = path.join('uploads', 'uploadedFiles.json');
+
+    // 1. Remove the file from disk
+    if (fs.existsSync(uploadPath)) {
+      fs.unlinkSync(uploadPath);
+    }
+
+    // 2. Remove from uploadedFiles.json
+    let uploadedFiles = [];
+    if (fs.existsSync(uploadedFilesPath)) {
+      const raw = fs.readFileSync(uploadedFilesPath);
+      uploadedFiles = JSON.parse(raw);
+      uploadedFiles = uploadedFiles.filter(file => file.backendFilename !== filename);
+      fs.writeFileSync(uploadedFilesPath, JSON.stringify(uploadedFiles, null, 2));
+    }
+
+    res.status(200).json({ message: 'File and record deleted successfully.' });
+  } catch (err) {
+    console.error('Delete failed:', err);
+    res.status(500).json({ message: 'Error deleting file.' });
+  }
+};
+
