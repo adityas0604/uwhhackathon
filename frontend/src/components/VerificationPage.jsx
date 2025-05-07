@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Container, Row, Col, Card, Button, Form, Spinner, ListGroup
+  Container, Row, Col, Card, Button, Form, Spinner, ListGroup, ButtonGroup, Dropdown
 } from 'react-bootstrap';
 import axios from 'axios';
 import ToastNotifier from '../components/ToastNotifier';
@@ -143,8 +143,23 @@ function VerificationPage() {
             {files.map((file, idx) => (
               <Col key={idx} xs={12} sm={6} md={6}>
                 <Card className="h-60 shadow-sm d-flex flex-column" style={{ height: '75vh' }}>
-                  <Card.Header className="text-center fw-semibold py-2">
+                  <Card.Header className="d-flex justify-content-between align-items-center">
                     {file.originalFilename}
+
+                    <Dropdown as={ButtonGroup}>
+                      <Dropdown.Toggle variant="outline-primary" size="sm">
+                        📥 Download
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => downloadFile(file.backendFilename)}>
+                          📄 Download File
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => downloadOutput(file.backendFilename)}>
+                          📊 Download Output
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Card.Header>
 
                   <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -161,8 +176,13 @@ function VerificationPage() {
                             {isEditing ? (
                               <Form.Control
                                 as="textarea"
-                                rows={4}
-                                style={{ fontSize: '0.65rem' }}
+                                rows={6}
+                                style={{
+                                  fontSize: '0.95rem',
+                                  minHeight: '150px',    // Minimum height
+                                  maxHeight: '300px',    // Max height for scroll
+                                  overflowY: 'auto'      // Scrollable if content overflows
+                                }}
                                 value={value}
                                 onChange={(e) => handleLineItemChange(file.backendFilename, lineIdx, e.target.value)}
                               />
@@ -180,22 +200,25 @@ function VerificationPage() {
                       })}
                   </div>
 
-                  <Card.Footer className="bg-white border-0 d-flex flex-column gap-2 p-2">
-                    <div className="d-flex justify-content-between">
+                  <Card.Footer className="bg-grey border-0 d-flex flex-column gap-2 p-2">
+                    {/* Primary Actions */}
+                    <div className="d-flex justify-content-between mb-2">
                       <Button
                         variant={editingFile === file.backendFilename ? 'secondary' : 'primary'}
                         onClick={() => handleEditClick(file.backendFilename)}
                         size="sm"
+                        className="me-2"
                       >
-                        {editingFile === file.backendFilename ? 'Cancel' : 'Edit'}
+                        {editingFile === file.backendFilename ? '✏️ Cancel' : '✏️ Edit'}
                       </Button>
 
                       <Button
                         variant="warning"
                         onClick={() => handleReverify(file.backendFilename)}
                         size="sm"
+                        className="me-2"
                       >
-                        Reprocess
+                        🔄 Reprocess
                       </Button>
 
                       <Button
@@ -207,37 +230,11 @@ function VerificationPage() {
                         onClick={() => handleSave(file.backendFilename)}
                         size="sm"
                       >
-                        {savingFile === file.backendFilename ? (
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                            className="me-2"
-                          />
-                        ) : null}
-                        Save
+                        💾 Save
                       </Button>
                     </div>
 
-                    <div className="d-flex justify-content-between">
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        onClick={() => downloadFile(file.backendFilename)}
-                      >
-                        Download File
-                      </Button>
-
-                      <Button
-                        variant="outline-secondary"
-                        size="sm"
-                        onClick={() => downloadOutput(file.backendFilename)}
-                      >
-                        Download Output
-                      </Button>
-                    </div>
+              
                   </Card.Footer>
                 </Card>
               </Col>
