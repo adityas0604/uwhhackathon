@@ -1,77 +1,56 @@
 [
   {
-    "backendFilename": "file-1746417103525-755099469.pdf",
-    "originalFilename": "Medium - 3.pdf",
+    "backendFilename": "file-1746415355527-84032443.pdf",
+    "originalFilename": "Hard - 1.pdf",
     "extractedData": {
       "message": {
         "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=0ca490ac-050e-4745-8f12-96b759790e77",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=3ab2feee-7181-4b10-aa19-49bc027922e2",
         "error": null,
         "result": [
           {
-            "file": "file-1746417103525-755099469.pdf",
+            "file": "file-1746415355527-84032443.pdf",
             "status": "Success",
             "result": {
               "output": {
                 "extarct_line": [
                   {
-                    "Item": "Steel Nut 1/2\" 30mm Nickel Plated",
-                    "Price": null,
-                    "Qty": "117",
-                    "Total": null
+                    "Amount": "413.28",
+                    "Description": "Brass Nut 1/2\" 20mm Galvanized Coarse",
+                    "Item": "F30",
+                    "Quantity": "36.00",
+                    "Unit Cost": "11.48"
                   },
                   {
-                    "Item": "Brass Stud 1/4\" 30mm Zinc Plated",
-                    "Price": "33.4",
-                    "Qty": "25",
-                    "Total": null
+                    "Amount": "412.80",
+                    "Description": "Aluminum Screw M10 30mm Nickel Plated Fine",
+                    "Item": ": 100",
+                    "Quantity": "20.00",
+                    "Unit Cost": "20.64"
                   },
                   {
-                    "Item": "Aluminum Bolt 1/2\" 20mm Uncoated",
-                    "Price": null,
-                    "Qty": "291",
-                    "Total": null
-                  },
-                  {
-                    "Item": "Stainless Steel Anchor M5 100mm Black Oxide Fine",
-                    "Price": "543.2",
-                    "Qty": "46",
-                    "Total": null
-                  },
-                  {
-                    "Item": "Steel Screw 1/2\" 20mm Zinc Plated",
-                    "Price": null,
-                    "Qty": "505",
-                    "Total": null
-                  },
-                  {
-                    "Item": "Steel Nut 1/2\" 30mm Nickel Plated",
-                    "Price": null,
-                    "Qty": "116",
-                    "Total": null
-                  },
-                  {
-                    "Item": "Brass Stud 1/4\" 30mm Zinc Plated",
-                    "Price": null,
-                    "Qty": "116",
-                    "Total": null
+                    "Amount": "619.20",
+                    "Description": "Stainless Steel Nut M5 50mm Nickel Plated Coarse",
+                    "Item": "100",
+                    "Quantity": "20.00",
+                    "Unit Cost": "30.96"
                   }
                 ]
               }
             },
             "metadata": {
-              "source_name": "file-1746417103525-755099469.pdf",
-              "source_hash": "830ff5f49362b2fbcf18114af1bbb9fa978422f3e221bebf4396f4b03c0414bc",
+              "source_name": "file-1746415355527-84032443.pdf",
+              "source_hash": "53822faea45a0c6e8f3ac816914ec755d6985412b9f7f7bacb1bbe62250bd1e8",
               "organization_id": "org_TVqffEyFhVLX91G2",
               "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "0ca490ac-050e-4745-8f12-96b759790e77",
-              "file_execution_id": "608cfcf9-5849-491f-acb0-b1d69c22f24f",
+              "execution_id": "3ab2feee-7181-4b10-aa19-49bc027922e2",
+              "file_execution_id": "d01727b2-adac-41c4-adbb-7a5926136620",
               "tags": [],
-              "total_elapsed_time": 14.967252,
+              "total_elapsed_time": 8.893341,
               "tool_metadata": [
                 {
                   "tool_name": "structure_tool",
-                  "elapsed_time": 14.967246,
+                  "elapsed_time": 8.893337,
                   "output_type": "JSON"
                 }
               ]
@@ -82,258 +61,56 @@
     }
   },
   {
-    "backendFilename": "file-1746417934205-710046301.pdf",
-    "originalFilename": "Easy - 3.pdf",
+    "backendFilename": "file-1746415384194-648567277.pdf",
+    "originalFilename": "Hard - 2.pdf",
     "extractedData": {
       "message": {
         "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=5acb43cf-024b-4296-bfb4-6e64f808da47",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=94bd1c7b-5af1-4631-9c90-a6b81ccd53b1",
         "error": null,
         "result": [
           {
-            "file": "file-1746417934205-710046301.pdf",
+            "file": "file-1746415384194-648567277.pdf",
             "status": "Success",
             "result": {
               "output": {
                 "extarct_line": [
                   {
-                    "Amount": "117",
-                    "Request Item": "Steel Nut 1/2\" 30mm Nickel Plated"
+                    "Description": "Titanium Washer M4 30mm Galvanized Fine",
+                    "Line": "1",
+                    "Manufacturer Code": "909854",
+                    "Per": "ea",
+                    "Price": "90.866",
+                    "Product Code": "zZ_SODECK_79",
+                    "Quantity": "25 ea",
+                    "Total": "2,271.65"
                   },
                   {
-                    "Amount": "25",
-                    "Request Item": "Brass Stud 1/4\" 30mm Zinc Plated"
-                  },
-                  {
-                    "Amount": "291",
-                    "Request Item": "Aluminum Bolt 1/2\" 20mm Uncoated"
-                  },
-                  {
-                    "Amount": "46",
-                    "Request Item": "Stainless Steel Anchor M5 100mm Black Oxide Fine"
-                  },
-                  {
-                    "Amount": "505",
-                    "Request Item": "Steel Screw 1/2\" 20mm Zinc Plated"
-                  },
-                  {
-                    "Amount": "116",
-                    "Request Item": "Steel Nut 1/2\" 30mm Nickel Plated"
-                  },
-                  {
-                    "Amount": "116",
-                    "Request Item": "Brass Stud 1/4\" 30mm Zinc Plated"
+                    "Description": "Aluminum Stud M4 30mm Uncoated Coarse",
+                    "Line": "2",
+                    "Manufacturer Code": "852248",
+                    "Per": "ea",
+                    "Price": "57.04",
+                    "Product Code": "zz_SODECK_79",
+                    "Quantity": "8 ea",
+                    "Total": "456.32"
                   }
                 ]
               }
             },
             "metadata": {
-              "source_name": "file-1746417934205-710046301.pdf",
-              "source_hash": "9f49126f61e7f7a6dd7adbd5d8dda8ca98273201c0b9a379cc6bcd8d4dda70f8",
+              "source_name": "file-1746415384194-648567277.pdf",
+              "source_hash": "144b3f489df120fd3b4a81dd86a6f346bc071675dad763003859e554be733d27",
               "organization_id": "org_TVqffEyFhVLX91G2",
               "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "5acb43cf-024b-4296-bfb4-6e64f808da47",
-              "file_execution_id": "666ef6ab-1a54-4388-abbc-c2e62b9436aa",
+              "execution_id": "94bd1c7b-5af1-4631-9c90-a6b81ccd53b1",
+              "file_execution_id": "c4d4eb03-08e4-4d62-bfe6-22cb1e1d4970",
               "tags": [],
-              "total_elapsed_time": 12.802523,
+              "total_elapsed_time": 9.168969,
               "tool_metadata": [
                 {
                   "tool_name": "structure_tool",
-                  "elapsed_time": 12.802519,
-                  "output_type": "JSON"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "backendFilename": "file-1746417374525-378539804.pdf",
-    "originalFilename": "Easy - 2.pdf",
-    "extractedData": {
-      "message": {
-        "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=6c6e6851-6256-4e7b-a830-7042911d23e1",
-        "error": null,
-        "result": [
-          {
-            "file": "file-1746417374525-378539804.pdf",
-            "status": "Success",
-            "result": {
-              "output": {
-                "extarct_line": [
-                  {
-                    "Amount": "117",
-                    "Request Item": "Brass Screw M5 10mm Uncoated Coarse",
-                    "Total": null,
-                    "Unit Price": null
-                  },
-                  {
-                    "Amount": "25",
-                    "Request Item": "Aluminum Screw M4 40mm Zinc Plated Coarse",
-                    "Total": null,
-                    "Unit Price": null
-                  },
-                  {
-                    "Amount": "291",
-                    "Request Item": "Titanium Anchor 1/2\" 40mm Nickel Plated Machine",
-                    "Total": null,
-                    "Unit Price": null
-                  },
-                  {
-                    "Amount": "46",
-                    "Request Item": "Aluminum Screw M12 20mm Uncoated Wood",
-                    "Total": null,
-                    "Unit Price": null
-                  },
-                  {
-                    "Amount": "505",
-                    "Request Item": "Titanium Screw M6 40mm Zinc Plated Coarse",
-                    "Total": null,
-                    "Unit Price": null
-                  }
-                ]
-              }
-            },
-            "metadata": {
-              "source_name": "file-1746417374525-378539804.pdf",
-              "source_hash": "841cd2d26fcf98457e147b7180adce22a693791b09adc2e4eac9fa5530dbd266",
-              "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "6c6e6851-6256-4e7b-a830-7042911d23e1",
-              "file_execution_id": "10a0b6f8-75be-4cdb-a08a-3c7d8d040f59",
-              "tags": [],
-              "total_elapsed_time": 13.716463,
-              "tool_metadata": [
-                {
-                  "tool_name": "structure_tool",
-                  "elapsed_time": 13.71646,
-                  "output_type": "JSON"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "backendFilename": "file-1746418056957-473894200.pdf",
-    "originalFilename": "Hard -3.pdf",
-    "extractedData": {
-      "message": {
-        "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=f0935f84-8b52-43c2-80d4-6f1db1601e69",
-        "error": null,
-        "result": [
-          {
-            "file": "file-1746418056957-473894200.pdf",
-            "status": "Success",
-            "result": {
-              "output": {
-                "extarct_line": [
-                  {
-                    "Cost": "$41.71",
-                    "Ext Cost": "$2919.70",
-                    "Item #": "6268188",
-                    "Item Description": "Steel Bolt M6 50mm Galvanized Fine",
-                    "Qty": "70",
-                    "Vendor Part #": ""
-                  },
-                  {
-                    "Cost": "$42.13",
-                    "Ext Cost": "$42.13",
-                    "Item #": "6268188",
-                    "Item Description": "Titanium Nut 1/4\" 50mm Uncoated Fine",
-                    "Qty": "1",
-                    "Vendor Part #": "-"
-                  },
-                  {
-                    "Cost": "$41.71",
-                    "Ext Cost": "$583.94",
-                    "Item #": "6268188",
-                    "Item Description": "Brass Stud 1/4\" 40mm Uncoated Coarse",
-                    "Qty": "14",
-                    "Vendor Part #": ""
-                  }
-                ]
-              }
-            },
-            "metadata": {
-              "source_name": "file-1746418056957-473894200.pdf",
-              "source_hash": "e5520db629abc4e53b26b1a6e8e9b2f4c40d45e62e893ae25c90ea2184bc10fb",
-              "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "f0935f84-8b52-43c2-80d4-6f1db1601e69",
-              "file_execution_id": "8dceaf26-637e-48be-b09c-43a02bebada4",
-              "tags": [],
-              "total_elapsed_time": 16.079432,
-              "tool_metadata": [
-                {
-                  "tool_name": "structure_tool",
-                  "elapsed_time": 16.079427,
-                  "output_type": "JSON"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  },
-  {
-    "backendFilename": "file-1746415250742-87984071.pdf",
-    "originalFilename": "Easy - 2.pdf",
-    "extractedData": {
-      "message": {
-        "execution_status": "COMPLETED",
-        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=cf0cb8cd-788f-4ac1-a9de-f5fed0e02a64",
-        "error": null,
-        "result": [
-          {
-            "file": "file-1746415250742-87984071.pdf",
-            "status": "Success",
-            "result": {
-              "output": {
-                "extarct_line": [
-                  {
-                    "Amount": "117",
-                    "Request Item": "Brass Screw M5 10mm Uncoated Coarse"
-                  },
-                  {
-                    "Amount": "25",
-                    "Request Item": "Aluminum Screw M4 40mm Zinc Plated Coarse"
-                  },
-                  {
-                    "Amount": "291",
-                    "Request Item": "Titanium Anchor 1/2\" 40mm Nickel Plated Machine"
-                  },
-                  {
-                    "Amount": "46",
-                    "Request Item": "Aluminum Screw M12 20mm Uncoated Wood"
-                  },
-                  {
-                    "Amount": "505",
-                    "Request Item": "Titanium Screw M6 40mm Zinc Plated Coarse"
-                  }
-                ]
-              }
-            },
-            "metadata": {
-              "source_name": "file-1746415250742-87984071.pdf",
-              "source_hash": "841cd2d26fcf98457e147b7180adce22a693791b09adc2e4eac9fa5530dbd266",
-              "organization_id": "org_TVqffEyFhVLX91G2",
-              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
-              "execution_id": "cf0cb8cd-788f-4ac1-a9de-f5fed0e02a64",
-              "file_execution_id": "b234b8dc-5712-4a03-b968-ff3db10c7c16",
-              "tags": [],
-              "total_elapsed_time": 12.255114,
-              "tool_metadata": [
-                {
-                  "tool_name": "structure_tool",
-                  "elapsed_time": 12.255109,
+                  "elapsed_time": 9.168964,
                   "output_type": "JSON"
                 }
               ]

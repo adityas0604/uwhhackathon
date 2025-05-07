@@ -15,7 +15,11 @@ function VerificationPage() {
 
   useEffect(() => {
     fetchVerificationFiles();
+    const interval = setInterval(() => fetchVerificationFiles(), 5000);
+    return () => clearInterval(interval);
   }, []);
+
+
 
   const showNotification = (message) => {
     setToastMessage(message);
