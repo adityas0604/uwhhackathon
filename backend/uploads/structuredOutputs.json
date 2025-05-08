@@ -68,5 +68,66 @@
         ]
       }
     }
+  },
+  {
+    "backendFilename": "file-1746675045974-516191076.pdf",
+    "originalFilename": "Hard - 1.pdf",
+    "extractedData": {
+      "message": {
+        "execution_status": "COMPLETED",
+        "status_api": "/deployment/api/org_TVqffEyFhVLX91G2/extract-lines/?execution_id=d7b85b5a-8779-4cdb-9a5c-f69ef1a8016f",
+        "error": null,
+        "result": [
+          {
+            "file": "file-1746675045974-516191076.pdf",
+            "status": "Success",
+            "result": {
+              "output": {
+                "extarct_line": [
+                  {
+                    "Amount": "413.28",
+                    "Description": "Brass Nut 1/2\" 20mm Galvanized Coarse",
+                    "Item": "F30",
+                    "Quantity": "36.00",
+                    "Unit Cost": "11.48"
+                  },
+                  {
+                    "Amount": "412.80",
+                    "Description": "Aluminum Screw M10 30mm Nickel Plated Fine",
+                    "Item": "",
+                    "Quantity": "20.00 : 100",
+                    "Unit Cost": "20.64"
+                  },
+                  {
+                    "Amount": "619.20",
+                    "Description": "Stainless Steel Nut M5 50mm Nickel Plated Coarse",
+                    "Item": "",
+                    "Quantity": "20.00 100",
+                    "Unit Cost": "30.96"
+                  }
+                ]
+              }
+            },
+            "metadata": {
+              "source_name": "file-1746675045974-516191076.pdf",
+              "source_hash": "53822faea45a0c6e8f3ac816914ec755d6985412b9f7f7bacb1bbe62250bd1e8",
+              "organization_id": "org_TVqffEyFhVLX91G2",
+              "workflow_id": "e2c09d85-47f0-4f77-a0f0-b48b5d5db2bd",
+              "execution_id": "d7b85b5a-8779-4cdb-9a5c-f69ef1a8016f",
+              "file_execution_id": "0b99a2cc-6339-4610-9cf5-caff76b1c6c9",
+              "tags": [],
+              "total_elapsed_time": 9.711142,
+              "tool_metadata": [
+                {
+                  "tool_name": "structure_tool",
+                  "elapsed_time": 9.711138,
+                  "output_type": "JSON"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
   }
 ]
