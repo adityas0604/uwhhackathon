@@ -5,38 +5,30 @@ const poRoutes = require('./routes/po');
 const client = require("prom-client");
 require('dotenv').config();
 const cors = require('cors');
+const { router: metricsRouter, totalRequestCounter } = require('./metrics.js');
+
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const requestCounter = new client.Counter({
-    name: 'http_requests_total',
-    help: 'Total number of HTTP requests',
-    labelNames: ['method', 'route', 'status_code']
-});
+// Middleware to count each request except for /metrics
+const excludedRoutes = ['/metrics', '/health', '/favicon.ico'];
 
-function requestCountMiddleware(req, res, next){
-    res.on('finish', () => {
-        requestCounter.inc({
-            method: req.method,
-            route: req.path,
-            status_code: res.statusCode
-        });
-    });
-
+app.use((req, res, next) => {
+    if (!excludedRoutes.includes(req.path)) {
+      totalRequestCounter.inc();
+    }
     next();
-};
-
-app.use(requestCountMiddleware);
+  });
+  
+//app.use(requestCountMiddleware);
 app.use('/api/po', poRoutes);
+app.use('/metrics', metricsRouter);
 
-app.get("/metrics", async (req, res) => {
-    const metrics = await client.register.metrics();
-    res.set('Content-Type', client.register.contentType);
-    res.end(metrics);
-})
+
+
 
 const PORT = 8000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -3,6 +3,7 @@ const { moveFileToProcessed, listFilesInFolder } = require('../utils/pdfHelper')
 const fs = require('fs');
 const path = require('path');
 const processingQueue = require('../queues/processingQueue.js');
+const logger = require('../logger.js');
 
 // Upload API
 // exports.uploadPO = async (req, res) => {
@@ -24,6 +25,10 @@ const processingQueue = require('../queues/processingQueue.js');
 
 //Upload API with file mappings
 exports.uploadPO = async (req, res) => {
+  logger.info('Received file upload request ', {
+    filename: req.file ? req.file.filename : 'No file',
+    originalname: req.file ? req.file.originalname : 'No original name'
+  });
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
@@ -59,12 +64,16 @@ exports.uploadPO = async (req, res) => {
       path: req.file.path
     });
   } catch (err) {
+    logger.error(error.message);
     console.error('Error uploading file:', err);
     res.status(500).json({ message: 'Error uploading file' });
   }
 };
 
 exports.processDocument = async (req, res) => {
+  logger.info('Received document processing request', {
+    filename: req.params.filename
+  });
   try {
     const { filename } = req.params;
 
@@ -88,6 +97,7 @@ exports.processDocument = async (req, res) => {
 
     res.status(202).json({ message: 'File added to processing queue' });
   } catch (err) {
+    logger.error(err.message) 
     console.error('Error adding to queue:', err);
     res.status(500).json({ message: 'Failed to enqueue document' });
   }
@@ -95,6 +105,9 @@ exports.processDocument = async (req, res) => {
 
 // Process Document API
 exports.runDocumentProcessing = async (filename) => {
+  logger.info('Running document processing', {
+    filename: filename
+  });
   const filePath = path.join('uploads/new', filename);
 
   if (!fs.existsSync(filePath)) {
@@ -146,6 +159,7 @@ exports.runDocumentProcessing = async (filename) => {
 };
 
 exports.listUploadedFiles = async (req, res) => {
+  logger.info('Listing uploaded files');
   try {
     const uploadMappingPath = path.join('uploads', 'uploadedFiles.json');
     let uploadedFiles = [];
@@ -163,6 +177,7 @@ exports.listUploadedFiles = async (req, res) => {
       files: uploadedFiles
     });
   } catch (err) {
+    logger.error(err.message)
     console.error('Error fetching uploaded files:', err);
     res.status(500).json({ message: 'Error fetching uploaded files' });
   }
@@ -170,6 +185,9 @@ exports.listUploadedFiles = async (req, res) => {
 
 
 exports.reverifyDocument = async (req, res) => {
+  logger.info('Received document reverification request', {
+    filename: req.params.filename
+  });
   try {
     const { filename } = req.params;
 
@@ -226,6 +244,7 @@ exports.reverifyDocument = async (req, res) => {
 
     res.status(200).json({ message: 'Document sent back for reverification.' });
   } catch (err) {
+    logger.error(err.message)
     console.error('Error during reverification:', err);
     res.status(500).json({ message: 'Error sending document for reverification.' });
   }
@@ -233,6 +252,7 @@ exports.reverifyDocument = async (req, res) => {
 
 
 exports.getVerificationFiles = async (req, res) => {
+  logger.info('Fetching verification files');
   try {
     const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
     let structuredOutputs = [];
@@ -265,6 +285,7 @@ exports.getVerificationFiles = async (req, res) => {
 
     res.status(200).json({ files: formattedOutputs });
   } catch (err) {
+    logger.error(err.message)
     console.error('Error fetching verification files:', err);
     res.status(500).json({ message: 'Error fetching verification files.' });
   }
@@ -272,6 +293,9 @@ exports.getVerificationFiles = async (req, res) => {
 
 
 exports.editOutput = async (req, res) => {
+  logger.info('Editing output for file', {
+    filename: req.params.filename
+  });
   try {
     const { filename } = req.params;
     const { output } = req.body;
@@ -311,23 +335,33 @@ exports.editOutput = async (req, res) => {
 
     res.status(200).json({ message: 'Output updated successfully.' });
   } catch (err) {
+    logger.error(err.message)
     console.error('Error editing output:', err);
     res.status(500).json({ message: 'Error editing output.' });
   }
 };
 
 exports.downloadFile = (req, res) => {
+  logger.info('Downloading file', {
+    filename: req.params.filename
+  });
   const { filename } = req.params;
   const filePath = path.join('uploads', 'processed', filename);
 
   if (fs.existsSync(filePath)) {
     res.download(filePath);
   } else {
+    logger.error('File not found', {
+      filename: filename
+    });
     res.status(404).json({ message: 'File not found.' });
   }
 };
 
 exports.downloadOutput = (req, res) => {
+  logger.info('Downloading output for file', {
+    filename: req.params.filename
+  });
   const { filename } = req.params;
   const structuredOutputsPath = path.join('uploads', 'structuredOutputs.json');
 
@@ -343,14 +377,21 @@ exports.downloadOutput = (req, res) => {
       res.setHeader('Content-Disposition', `attachment; filename=${filename}-output.json`);
       res.json(outputData);
     } else {
+      logger.error('Output not found for file', {
+        filename: filename
+      });
       res.status(404).json({ message: 'Output not found.' });
     }
   } else {
+    logger.error('Structured outputs file not found');
     res.status(404).json({ message: 'Structured outputs not found.' });
   }
 };
 
 exports.deleteUploadedFile = async (req, res) => {
+  logger.info('Deleting uploaded file', {
+    filename: req.params.filename
+  });
   try {
     const { filename } = req.params;
     const uploadPath = path.join('uploads', 'new', filename);
@@ -372,6 +413,7 @@ exports.deleteUploadedFile = async (req, res) => {
 
     res.status(200).json({ message: 'File and record deleted successfully.' });
   } catch (err) {
+    logger.error(err.message)
     console.error('Delete failed:', err);
     res.status(500).json({ message: 'Error deleting file.' });
   }
